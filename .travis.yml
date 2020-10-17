@@ -1,0 +1,14 @@
+language: python
+python:
+- 3.8.3
+install:
+- pip install -r requirements-travis.txt
+script:
+- python manage.py test
+deploy:
+  provider: heroku
+  api_key:
+    secure: OPiWOOUlevZ78la3zy8PK3Dcwie08J08mo7j6+/n4WfMuwAc4fexU/iQAy+IxSD0RBXow8GyVCW44nyMVead6bTR/6iVDQ2zND1oNLPrCAsEMGjpEKVpeKstxeER+hfX1+wDKVfnTdtEuhj4cojTi9DzpsAs3V0jhpGceRq2C4u8c42KHhSXPikGL/+cciez0yVX+tbe0nb8EslvP4Mk5yHMFmjAGL1zwT+c1bM2gyxSTb7VazKx9iug4UzimFhqQCPh7nUqvhB748Pgl4uwuDudvWTc8IxLWFuibYrdb4A8ujn8DK6O6vsTUckUqvPSvTA4GgArqlvggngXN1Jq2uLfH8u0pD2IAfRAhojS6XKcOXxp7vKV+1zZjuWdmZZYrkuG8LFWullEUg7wSMfdMCYenpslphDaTMQeR0TnV32tXp76v90qp1UtkFfEfIwWvyTcjq9Ph1sDEvDuiOWL+GK7PyUoacLhpBSOilwEyrpCIlqa8Kr2AZgJXXqUcrcHTamq9AHdyBKJXH2LGWlsclQD/QY5u5/pr/qehBtam+viVrTr8/+yRAib4ndPJlvntPpZ3u+OOy/zSBrJWFeui5NvASxSeDdh2OZYj3f4tvO6mGaBGqUauJZv7bkxoUgGvBp+hDOZ9hKb8GD2RfwFdFqDPV6S8zqTOZQ4De/DVNU=
+  app: civic-connect-112
+  on:
+    repo: uva-cs3240-f20/project-1-12
