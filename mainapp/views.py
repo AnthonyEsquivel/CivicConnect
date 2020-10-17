@@ -6,6 +6,9 @@ from .models import Template
 def index(request):
     return render(request, "mainapp/index.html")
 
+def profile(request):
+    return render(request, "mainapp/profile.html")
+
 def makeTemplate(request):
     if request.method == 'POST':
         postName = request.POST.get("temp_name")

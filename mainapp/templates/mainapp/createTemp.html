@@ -1,13 +1,10 @@
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-{% load static %}
-
+{% extends 'mainapp/base.html' %}
+{% block content %}
 <h1>{{ template.temp_text }}</h1>
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 <h1 class="display-5">Create Your Own:</h1>
-<form action="{% url 'myapp:newTemp' %}" method="post">
+<form action="{% url 'mainapp:createTemp' %}" method="post">
     {% csrf_token %}
-    <!--include nav-bar here-->
     <!--Template Name Box-->
     <div class="form-group text-left">
         <label>Template Name</label>
@@ -21,7 +18,7 @@
     <!--Template Text Box-->
     <div class="form-group text-left">
         <label>Template Text</label>
-        <input type="textarea" class="form-control" name="temp_text" row="7"></input>
+        <textarea class="form-control" id="templatetext" rows="15"></textarea>
     </div>
     <!--Submit for Review Checkbox-->
     <div class="form-check">
@@ -31,18 +28,4 @@
     <!--Submit Template Button-->
     <button type="submit" class="btn btn-primary">Add to My Templates</button>
 </form>
-<style>
-    .footer {
-      position: fixed;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      background-color: black;
-      color: white;
-      text-align: center;
-    }
-</style>
-    
-<div class="footer text-left">
-    <em>The Go Gitters Copyright 2020</em><br>
-</div>
+{% endblock %}
