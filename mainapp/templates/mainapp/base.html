@@ -23,11 +23,11 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link disabled" href="" id="hellouser"></a>
-              </li>        
+              </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
-                <a href="#" onclick="signOut();">Sign out</a>
+                <a href="" onclick="signOut();">Sign out</a>
                 <!--  Search bar
                 <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
@@ -39,6 +39,14 @@
         <!--Google sign in-->
         <html lang="en">
         <head>
+            <h1>My Google Login Project</h1>
+          {% if user.is_authenticated %}
+          <p>Welcome, {{ user.username }} !</p>
+
+          {% else %}
+          <h1>My Google Login Project</h1>
+            <a class="btn btn-primary" href="{% provider_login_url 'google' %}">Log in</a>
+          {% endif %}
         <meta name="google-signin-scope" content="profile email">
         <meta name="google-signin-client_id" content="206999216472-rpndm6204nui9s2dvgkl9va6c8v6lume.apps.googleusercontent.com">
         <script src="https://apis.google.com/js/platform.js" async defer></script>

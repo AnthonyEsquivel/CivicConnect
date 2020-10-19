@@ -17,5 +17,3 @@ def makeTemplate(request):
         newTemplate = Template(temp_name = postName, temp_description=postDesc, temp_text=postTemp)
         newTemplate.save()
     return render(request, 'mainapp/createTemp.html')
-
-
