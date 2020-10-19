@@ -1,0 +1,31 @@
+{% extends 'mainapp/base.html' %}
+{% block content %}
+<h1>{{ template.temp_text }}</h1>
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+<h1 class="display-5">Create Your Own:</h1>
+<form action="{% url 'mainapp:createTemp' %}" method="post">
+    {% csrf_token %}
+    <!--Template Name Box-->
+    <div class="form-group text-left">
+        <label>Template Name</label>
+        <input type="text" class="form-control" name="temp_name" placeholder="Enter name">
+    </div>
+    <!--Template Description Box-->
+    <div class="form-group text-left">
+        <label>Short description of the main goal of the template</label>
+        <input type="textarea" class="form-control" name="temp_description" row="2"></input>
+    </div>
+    <!--Template Text Box-->
+    <div class="form-group text-left">
+        <label>Template Text</label>
+        <textarea class="form-control" id="templatetext" rows="15"></textarea>
+    </div>
+    <!--Submit for Review Checkbox-->
+    <div class="form-check">
+        <label class="form-check-label">
+          <input type="checkbox" class="form-check-input" value="">Submit for Review</label>
+      </div>
+    <!--Submit Template Button-->
+    <button type="submit" class="btn btn-primary">Add to My Templates</button>
+</form>
+{% endblock %}
