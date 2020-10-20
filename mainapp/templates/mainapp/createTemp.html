@@ -3,6 +3,8 @@
 <h1>{{ template.temp_text }}</h1>
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 <h1 class="display-5">Create Your Own:</h1>
+<!--Creator Name Box-->
+
 <form action="{% url 'mainapp:createTemp' %}" method="post">
     {% csrf_token %}
     <!--Template Name Box-->
@@ -18,7 +20,7 @@
     <!--Template Text Box-->
     <div class="form-group text-left">
         <label>Template Text</label>
-        <textarea class="form-control" id="templatetext" rows="15"></textarea>
+        <textarea class="form-control" name="temp_text" rows="15"></textarea>
     </div>
     <!--Submit for Review Checkbox-->
     <div class="form-check">
