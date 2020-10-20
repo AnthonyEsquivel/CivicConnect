@@ -3,5 +3,12 @@
 <h1>Profile Page</h1>
 <h2>My Information</h2>
 <!-- user information -->
+
+<p> {{ user }} </p>
+<!-- for all the templates, grab the name -->
+{% for template in templates %}
+    {{template.temp_name}}
+{% endfor %}
+
 <h2>My Templates</h2>
 {% endblock %}
