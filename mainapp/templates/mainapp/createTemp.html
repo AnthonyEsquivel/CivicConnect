@@ -4,29 +4,31 @@
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 <h1 class="display-5">Create Your Own:</h1>
 <!--Creator Name Box-->
-
 <form action="{% url 'mainapp:createTemp' %}" method="post">
     {% csrf_token %}
     <!--Template Name Box-->
     <div class="form-group text-left">
         <label>Template Name</label>
-        <input type="text" class="form-control" name="temp_name" placeholder="Enter name">
+<!--        <input type="text" class="form-control" name="temp_name" placeholder="Enter name">-->
+        {{form.temp_name}}
     </div>
     <!--Template Description Box-->
     <div class="form-group text-left">
         <label>Short description of the main goal of the template</label>
-        <input type="textarea" class="form-control" name="temp_description" row="2"></input>
+<!--        <input type="textarea" class="form-control" name="temp_description" row="2"></input>-->
+        {{form.temp_description}}
     </div>
     <!--Template Text Box-->
     <div class="form-group text-left">
         <label>Template Text</label>
-        <textarea class="form-control" name="temp_text" rows="15"></textarea>
+<!--        <textarea class="form-control" name="temp_text" rows="15"></textarea>-->
+        {{form.temp_text}}
     </div>
     <!--Submit for Review Checkbox-->
     <div class="form-check">
         <label class="form-check-label">
           <input type="checkbox" class="form-check-input" value="">Submit for Review</label>
-      </div>
+    </div>
     <!--Submit Template Button-->
     <button type="submit" class="btn btn-primary">Add to My Templates</button>
 </form>
