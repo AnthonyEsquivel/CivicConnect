@@ -10,17 +10,20 @@
     <!--Template Name Box-->
     <div class="form-group text-left">
         <label>Template Name</label>
-        <input type="text" class="form-control" name="temp_name" placeholder="Enter name">
+<!--        <input type="text" class="form-control" name="temp_name" placeholder="Enter name">-->
+        {{form.temp_name}}
     </div>
     <!--Template Description Box-->
     <div class="form-group text-left">
         <label>Short description of the main goal of the template</label>
-        <input type="textarea" class="form-control" name="temp_description" row="2"></input>
+<!--        <input type="textarea" class="form-control" name="temp_description" row="2"></input>-->
+        {{form.temp_description}}
     </div>
     <!--Template Text Box-->
     <div class="form-group text-left">
         <label>Template Text</label>
-        <textarea class="form-control" name="temp_text" rows="15"></textarea>
+<!--        <textarea class="form-control" name="temp_text" rows="15"></textarea>-->
+        {{form.temp_text}}
     </div>
     <!--Submit for Review Checkbox-->
     <div class="form-check">

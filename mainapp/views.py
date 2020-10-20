@@ -1,9 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Template
+from .forms import TemplateForm
 
 
 # Create your views here.
+
+# Getting the data from the model and pass it to the template
+# You can also get data from the template and put it into the model
 
 def index(request):
     return render(request, "mainapp/index.html")
@@ -18,11 +22,12 @@ def profile(request):
 
 def makeTemplate(request):
     if request.method == 'POST':
-        print(request.POST)
+        form = TemplateForm(request.POST)
+        if form.is_valid():
+            form.save()
         postName = request.POST.get("temp_name")
         postDesc = request.POST.get("temp_description")
         postTemp = request.POST.get("temp_text")
-        print(postTemp)
         newTemplate = Template(temp_name=postName, temp_description=postDesc, temp_text=postTemp)
         newTemplate.save()
-    return render(request, 'mainapp/createTemp.html')
+    return render(request, 'mainapp/createTemp.html', context={'form': TemplateForm})
