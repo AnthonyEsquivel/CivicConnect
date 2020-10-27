@@ -1,15 +1,19 @@
 {% extends 'mainapp/base.html' %}
+
 {% block content %}
 <h1>Profile Page</h1>
-<h3 style="color:blue;">My Information</h3>
-<!-- user information -->
 
+<h3>My Information</h3>
+<!-- user information -->
 <p> {{ user }} </p>
+
+<h3>My Templates</h3>
+
 <!-- for all the templates, grab the name -->
 {% for template in templates %}
     {{template.temp_name}}
 <p>{{template.temp_description}} </p>
 {% endfor %}
 
-<h2>My Templates</h2>
 {% endblock %}
+
