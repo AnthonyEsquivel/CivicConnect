@@ -13,6 +13,8 @@ from django.contrib.auth import logout
 def index(request):
     return render(request, "mainapp/index.html")
 
+def news(request):
+    return render(request, "mainapp/news.html")
 
 def profile(request):
     return render(request, "mainapp/profile.html", context={
