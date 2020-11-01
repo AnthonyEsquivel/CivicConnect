@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import  get_object_or_404, render
 from django.http import HttpResponse
 from .models import Template
 from .forms import TemplateForm
@@ -31,3 +31,11 @@ def makeTemplate(request):
         newTemplate = Template(temp_name=postName, temp_description=postDesc, temp_text=postTemp)
         newTemplate.save()
     return render(request, 'mainapp/createTemp.html', context={'form': TemplateForm})
+
+def browseTemplates(request):
+    return render(request, "mainapp/browse.html", context={'templates': Template.objects.all()})
+
+def templatePage(request, id):
+    template = get_object_or_404(Template, id=id)
+    #template = Template.objects.get(id=id)
+    return render(request, 'mainapp/tempPage.html', context= {'template': template})
