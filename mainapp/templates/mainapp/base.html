@@ -1,3 +1,5 @@
+{% load socialaccount %}
+
 <html>
 <head>
 	<meta charset="utf-8">
@@ -29,16 +31,19 @@
             <li class="nav-item">
                 <a class="nav-link" href="/createTemp">Create Templates</a>
             </li>
+			<li class="nav-item">
+				<a class="nav-link" href="/news">News</a>
+			  </li>
             <li class="nav-item">
                 <a class="nav-link" href="/profile">My Profile</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link disabled" href="" id="hellouser"></a>
-              </li>        
+              </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
-                <a href="#" onclick="signOut();">Sign out</a>
+                <!-- <a href="" onclick="signOut();">Sign out</a> -->
                 <!--  Search bar
                 <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
@@ -50,7 +55,8 @@
         <!--Google sign in-->
         <html lang="en">
         <head>
-        <meta name="google-signin-scope" content="profile email">
+
+        <!-- <meta name="google-signin-scope" content="profile email">
         <meta name="google-signin-client_id" content="206999216472-rpndm6204nui9s2dvgkl9va6c8v6lume.apps.googleusercontent.com">
         <script src="https://apis.google.com/js/platform.js" async defer></script>
         </head>
@@ -72,11 +78,11 @@
             console.log("ID Token: " + id_token);
             document.getElementById('hellouser').innerHTML="Hello "+fullname+"!";
           }
-        </script>
+        </script> -->
         </body>
         </html>
         <!--Google sign out-->
-        <script>
+        <!-- <script>
         function signOut() {
             var auth2 = gapi.auth2.getAuthInstance();
             auth2.signOut().then(function () {
@@ -84,13 +90,27 @@
             document.getElementById('hellouser').innerHTML="";
             });
         }
-        </script>
+        </script> -->
 
 	<title>{% block title %}Civic Connect Site{% endblock %}</title>
 </head>
 
+
+
 <body>
     <div class="content container">
+        <br>
+        <div class="row">
+            <div class="col-md-8">
+                {% if user.is_authenticated %}
+                <p>Welcome, {{ user.username }} !</p>
+                <a class="btn btn-primary btn-lg btn-block" href="{% url 'logout' %}">Log out</a>
+                {% else %}
+                  <a class="btn btn-primary btn-lg btn-block" href="{% provider_login_url 'google' %}">Log in</a>
+                {% endif %}
+            </div>
+        </div>
+        <br>
         <div class="row">
             <div class="col-md-8">
             {% block content %}

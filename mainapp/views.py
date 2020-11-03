@@ -2,6 +2,7 @@ from django.shortcuts import  get_object_or_404, render
 from django.http import HttpResponse
 from .models import Template
 from .forms import TemplateForm
+from django.contrib.auth import logout
 
 
 # Create your views here.
@@ -12,6 +13,8 @@ from .forms import TemplateForm
 def index(request):
     return render(request, "mainapp/index.html")
 
+def news(request):
+    return render(request, "mainapp/news.html")
 
 def profile(request):
     return render(request, "mainapp/profile.html", context={
@@ -39,3 +42,8 @@ def templatePage(request, id):
     template = get_object_or_404(Template, id=id)
     #template = Template.objects.get(id=id)
     return render(request, 'mainapp/tempPage.html', context= {'template': template})
+  
+def logout_view(request):
+    auth_logout(request)
+    return redirect('')
+    # Redirect to a success page.
