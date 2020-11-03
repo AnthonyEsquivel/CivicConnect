@@ -1,0 +1,20 @@
+{% extends 'mainapp/base.html' %}
+
+{% block content %}
+
+{% if templates %}
+    <div class="list-group">
+        {% for template in templates %}
+            <a href="/{{template.id}}" class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                  <h5 class="mb-1">{{template.temp_name}}</h5>
+                </div>
+                <p class="mb-1">{{template.temp_description}}</p>
+              </a>
+        {% endfor %}
+    </div>
+    {% else %}
+        <p>No templates are available.</p>
+    {% endif %}
+
+{% endblock %}

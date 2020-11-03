@@ -1,0 +1,8 @@
+{% extends 'mainapp/base.html' %}
+{% block content %}
+  <h1>{{template.temp_name}}</h1>
+  <h3>Description: {{template.temp_description}}</h3>
+  <h3>Template: </h3>
+  <p>{{template.temp_text}}</p>
+  <button type="submit" class="btn btn-primary">Share</button>
+{% endblock %}
