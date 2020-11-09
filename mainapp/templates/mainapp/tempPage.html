@@ -4,5 +4,21 @@
   <h3>Description: {{template.temp_description}}</h3>
   <h3>Template: </h3>
   <p>{{template.temp_text}}</p>
-  <button type="submit" class="btn btn-primary">Share</button>
+  {% if template.owner == user %}
+    <!--input class="btn btn-primary" href="/profile" type="submit" name="publish" value="Publish" /-->
+    {% if template.public %}
+    <p>You have published this template and it is available to the public.</p>
+    {% else %}
+    <form method='POST' >
+      {% csrf_token %}
+      <!--{{form1.as_p}}-->
+      <button type="submit" name="publish" onclick="location.href = '/profile'" class="btn btn-primary">Publish</button> 
+    </form>
+    {% endif %}
+  {% endif %}
+    <form method='POST' >
+      {% csrf_token %}
+      <!--{{form1.as_p}}-->
+      <button type="submit" name="send" class="btn btn-primary">Send to Representative</button> 
+    </form>
 {% endblock %}

@@ -5,15 +5,25 @@
 
 <h3>My Information</h3>
 <!-- user information -->
-<p> {{ user }} </p>
+<h5> {{ user }} </h5>
+<a>Email: {{user.email}}</a>
 
 <h3>My Templates</h3>
 
 <!-- for all the templates, grab the name -->
-{% for template in templates %}
-    {{template.temp_name}}
-<p>{{template.temp_description}} </p>
-{% endfor %}
+
+<div class="list-group">
+    {% for template in userTemps %}
+        <a href="/{{template.id}}" class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">{{template.temp_name}}</h5>
+            <small>{{template.pub_date}}</small>
+            </div>
+            <p class="mb-1">{{template.temp_description}}</p>
+            <p class="mb-1">Public: {{template.public}}</p>
+        </a>
+    {% endfor %}
+</div>
 
 {% endblock %}
 
