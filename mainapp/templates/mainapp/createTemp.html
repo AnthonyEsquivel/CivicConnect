@@ -6,7 +6,7 @@
 <!--Creator Name Box-->
 {% if not user.is_authenticated%}
         <h3>Please login to create template</h3>
-{% else %} 
+{% else %}
 <form action="{% url 'mainapp:createTemp' %}" method="post">
     {% csrf_token %}
     <!--Template Name Box-->

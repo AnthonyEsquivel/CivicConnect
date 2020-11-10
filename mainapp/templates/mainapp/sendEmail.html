@@ -1,0 +1,32 @@
+{% extends 'mainapp/base.html' %}
+{% block content %}
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+<h1 class="display-5">Create Your Email:</h1>
+<!--Creator Name Box-->
+<form action="{% url 'mainapp:sendEmail' %}" method="post">
+    {% csrf_token %}
+    <!--Template Name Box-->
+    <div class="form-group text-left">
+        <label>To email:</label>
+        <br>
+<!--        <input type="text" class="form-control" name="temp_name" placeholder="Enter name">-->
+        {{form.to_email}}
+    </div>
+    <!--Template Description Box-->
+    <div class="form-group text-left">
+        <label>Subject:</label>
+        <br>
+<!--        <input type="textarea" class="form-control" name="temp_description" row="2"></input>-->
+        {{form.subject}}
+    </div>
+    <!--Template Text Box-->
+    <div class="form-group text-left">
+        <label>Message:</label>
+        <br>
+<!--        <textarea class="form-control" name="temp_text" rows="15"></textarea>-->
+        {{form.message}}
+    </div>
+    <!--Submit Template Button-->
+    <button type="submit" class="btn btn-primary">Send Email</button>
+</form>
+{% endblock %}
