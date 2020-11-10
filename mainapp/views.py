@@ -93,7 +93,7 @@ def get_data(request):
                         test_representatives[official_idx]['office'] = office
 
             dict_items = test_representatives.items()
-            return render(request, "mainapp/profile.html", {"address": address, "representatives": representatives, 'test_representatives': test_representatives})
+            return render(request, "mainapp/profile.html", context={"address": address, "representatives": representatives, 'test_representatives': test_representatives})
 
         except KeyError:
             # send to random page until we write error message
