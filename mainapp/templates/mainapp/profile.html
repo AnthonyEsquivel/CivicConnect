@@ -36,7 +36,16 @@
 
 <!-- display representatives based on your address -->
 
-<input id="rep-btn" class="btn" type="submit" name="representatives" value="Find Your Local Representatives">
+    <form action="{% url 'mainapp:profile' %}" method="POST" class="address-form">
+            {% csrf_token %}
+            <div class="input-field">
+                <input id="address-input" type="text" name="address" value="Enter Your Address">
+                <span class="helper-text red-text" data-error="Please enter a valid address" data-success="Great!"></span>
+            </div>
+            <div class="btn-field">
+                <input id="rep-btn" class="btn" type="submit" name="representatives" value="Find Your Local Representatives">
+            </div>
+        </form>
 
     {% if representatives %}
         <body id="reps">
