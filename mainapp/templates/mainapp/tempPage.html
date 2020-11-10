@@ -1,9 +1,9 @@
 {% extends 'mainapp/base.html' %}
 {% block content %}
-  <h1>{{template.temp_name}}</h1>
+  <h1 id="tempsubj">{{template.temp_name}}</h1>
   <h3>Description: {{template.temp_description}}</h3>
   <h3>Template: </h3>
-  <p>{{template.temp_text}}</p>
+  <p id="templatetext">{{template.temp_text}}</p>
   {% if template.owner == user %}
     <!--input class="btn btn-primary" href="/profile" type="submit" name="publish" value="Publish" /-->
     {% if template.public %}
@@ -12,13 +12,46 @@
     <form method='POST' >
       {% csrf_token %}
       <!--{{form1.as_p}}-->
-      <button type="submit" name="publish" onclick="location.href = '/profile'" class="btn btn-primary">Publish</button> 
+      <button type="submit" name="publish" onclick="location.href = '/profile'" class="btn btn-primary">Publish</button>
     </form>
     {% endif %}
   {% endif %}
+  <h1 class="display-5">Create Your Email:</h1>
     <form method='POST' >
       {% csrf_token %}
       <!--{{form2.as_p}}-->
-      <button type="submit" name="send" class="btn btn-primary">Send to Representative</button> 
+      <!--Template Name Box-->
+      <div class="form-group text-left">
+          <label>To email:</label>
+          <br>
+  <!--        <input type="text" class="form-control" name="temp_name" placeholder="Enter name">-->
+          {{form.to_email}}
+      </div>
+      <!--Template Description Box-->
+      <div class="form-group text-left">
+          <label>Subject:</label>
+          <br>
+  <!--        <input type="textarea" class="form-control" name="temp_description" row="2"></input>-->
+            <input type="text" id="subject" name="subject">
+          <!-- {{form.subject}} -->
+      </div>
+      <!--Template Text Box-->
+      <div class="form-group text-left">
+          <label>Message:</label>
+          <br>
+  <!--        <textarea class="form-control" name="temp_text" rows="15"></textarea>-->
+                <textarea class="form-control" id="message" name="message" rows="15"></textarea>
+                <!-- <input type="text" id="message" name="message"> -->
+          <!-- {{form.message}} -->
+      </div>
+      <!--Submit Template Button-->
+      <button type="submit" name="send" class="btn btn-primary">Send to Representative</button>
     </form>
+<script>
+    var temptext= document.getElementById("templatetext").innerHTML;
+    document.getElementById("message").value=temptext;
+    var tempsubj= document.getElementById("tempsubj").innerHTML;
+    document.getElementById("subject").value=tempsubj;
+</script>
+
 {% endblock %}

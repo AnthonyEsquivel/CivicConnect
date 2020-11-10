@@ -56,9 +56,18 @@ def templatePage(request, id):
         return redirect('/profile')
     else:
         #Add share fuctionality
-        send = "email" #placeholder (no functionality)
-
-    return render(request, 'mainapp/tempPage.html', context= {'user':request.user,'template': template})
+        if request.method == 'POST' and 'send' in request.POST:
+            form = ContactForm(request.POST)
+            if form.is_valid():
+                subject = request.POST.get('subject')
+                to_email = request.POST.get('to_email')
+                message = request.POST.get('message')
+                try:
+                    send_mail(subject, message,'civicconnect112@gmail.com', [to_email])
+                except BadHeaderError:
+                    return HttpResponse('Invalid header found.')
+                return redirect('/success')
+    return render(request, 'mainapp/tempPage.html', context= {'user':request.user,'template': template, 'form': ContactForm})
 
 def logout_view(request):
     auth_logout(request)
