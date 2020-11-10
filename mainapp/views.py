@@ -74,28 +74,29 @@ def get_data(request):
     address = request.POST['address']
     key = "AIzaSyAqg74M90_V9eS2j06NNzGK-PqRNZ9sbLg"
     if request.method == 'POST' and 'representatives' in request.POST:
-       try:
-           url = f"https://civicinfo.googleapis.com/civicinfo/v2/representatives?address={address}&includeOffices=true&key={key}"
-           response = requests.get(url)
-           representatives = response.json()
-           json_reps = json.loads(response.text)
-           offices = json_reps['offices']
-           officials = json_reps['officials']
-           names = []
-           indices = []
-           test_representatives = {}
-           print(type(officials))
+        try:
+            url = f"https://civicinfo.googleapis.com/civicinfo/v2/representatives?address={address}&includeOffices=true&key={key}"
+            response = requests.get(url)
+            representatives = response.json()
+            json_reps = json.loads(response.text)
+            offices = json_reps['offices']
+            officials = json_reps['officials']
+            names = []
+            indices = []
+            test_representatives = {}
+            print(type(officials))
 
-           for official_idx, official in enumerate(officials):
-               test_representatives[official_idx] = official
-               for office_idx, office in enumerate(offices):
-                   if official_idx in office['officialIndices']:
-                       test_representatives[official_idx]['office'] = office
+            for official_idx, official in enumerate(officials):
+                test_representatives[official_idx] = official
+                for office_idx, office in enumerate(offices):
+                    if official_idx in office['officialIndices']:
+                        test_representatives[official_idx]['office'] = office
 
             dict_items = test_representatives.items()
+            return render(request, "profile.html", {"address": address, "representatives": representatives, 'test_representatives': test_representatives})
 
-           return render(request, "profile.html", {"address": address, "representatives": representatives,
-                                                   'test_representatives': test_representatives})
         except KeyError:
             # send to random page until we write error message
-           return render(request, "news.html")
+            return render(request, "news.html")
+    return
+
