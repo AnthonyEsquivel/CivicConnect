@@ -1,4 +1,4 @@
-from django.shortcuts import  get_object_or_404, render
+from django.shortcuts import  get_object_or_404, render, redirect
 from django.http import HttpResponse
 from .models import Template
 from .forms import TemplateForm
@@ -17,9 +17,13 @@ def news(request):
     return render(request, "mainapp/news.html")
 
 def profile(request):
+    userTemps = []
+    for t in Template.objects.all():
+        if t.owner == request.user:
+            userTemps.append(t)
     return render(request, "mainapp/profile.html", context={
         'user': request.user,
-        'templates': Template.objects.all()
+        'userTemps': userTemps
     })
 
 
@@ -31,17 +35,29 @@ def makeTemplate(request):
         postName = request.POST.get("temp_name")
         postDesc = request.POST.get("temp_description")
         postTemp = request.POST.get("temp_text")
-        newTemplate = Template(temp_name=postName, temp_description=postDesc, temp_text=postTemp)
+        newTemplate = Template(temp_name=postName, temp_description=postDesc, temp_text=postTemp,owner=request.user)
         newTemplate.save()
+        return redirect('/profile')
     return render(request, 'mainapp/createTemp.html', context={'form': TemplateForm})
 
 def browseTemplates(request):
-    return render(request, "mainapp/browse.html", context={'templates': Template.objects.all()})
+    publicTemps = []
+    for t in Template.objects.all().order_by('-pub_date'):
+        if t.public:
+            publicTemps.append(t)
+    return render(request, "mainapp/browse.html", context={'templates': publicTemps})
 
 def templatePage(request, id):
     template = get_object_or_404(Template, id=id)
-    #template = Template.objects.get(id=id)
-    return render(request, 'mainapp/tempPage.html', context= {'template': template})
+    if request.method =='POST' and 'publish' in request.POST:
+        template.public = True
+        template.save(update_fields=["public"])
+        return redirect('/profile')
+    else:
+        #Add share fuctionality
+        send = "email" #placeholder (no functionality)
+
+    return render(request, 'mainapp/tempPage.html', context= {'user':request.user,'template': template})
   
 def logout_view(request):
     auth_logout(request)

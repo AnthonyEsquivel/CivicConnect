@@ -4,6 +4,9 @@
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 <h1 class="display-5">Create Your Own:</h1>
 <!--Creator Name Box-->
+{% if not user.is_authenticated%}
+        <h3>Please login to create template</h3>
+{% else %} 
 <form action="{% url 'mainapp:createTemp' %}" method="post">
     {% csrf_token %}
     <!--Template Name Box-->
@@ -32,4 +35,5 @@
     <!--Submit Template Button-->
     <button type="submit" class="btn btn-primary">Add to My Templates</button>
 </form>
+{% endif %}
 {% endblock %}
