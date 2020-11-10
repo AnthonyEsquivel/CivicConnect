@@ -11,6 +11,11 @@ class Tags(models.Model):
     def __str__(self):
         return self.name
 
+class Profile(models.Model):
+    location = models.CharField(max_length=200, blank=True)
+    first_name = models.CharField(max_length=200, blank=True)
+    last_name = models.CharField(max_length=200, blank=True) 
+    location = models.CharField(max_length=200, blank=True)
 
 class Template(models.Model):
     temp_name = models.CharField(max_length=200)

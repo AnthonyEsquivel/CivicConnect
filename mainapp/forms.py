@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from mainapp.models import Template
+from mainapp.models import Template, Profile
 
 
 class TemplateForm(ModelForm):
@@ -14,4 +14,9 @@ class TemplateForm(ModelForm):
             field.widget.attrs.update({'class': "form-control"})
         # following line is for one item
         # self.fields['temp_name'].widget.attrs.update({'class': "form-control"})
+
+class EditProfileForm(ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['first_name', 'last_name', 'location']
 

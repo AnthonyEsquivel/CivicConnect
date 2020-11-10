@@ -1,0 +1,32 @@
+{% extends "base_site.html" %}
+
+{% block content %}
+
+<h1>Edit Profile</h1>              
+
+<form method="POST" action="{% url 'editProfile'%}" class="">
+    {% csrf_token %}
+                <label>Street</label>
+                <div>
+                  <input type="text" class="form-control">
+                </div>
+                <label>City</label>
+                <div>
+                  <input type="text" class="form-control">
+                </div>
+                <label>State</label>
+                <div>
+                  <input type="text" class="form-control">
+                </div>
+                <label>ZIP Code</label>
+                <div>
+                  <input type="text" class="form-control">
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-primary">Get Representative Info</button>
+                </div>
+    <button type="submit">Save</button>
+</form>
+
+
+{% endblock %}
