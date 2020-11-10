@@ -18,4 +18,5 @@ urlpatterns = [
     path("logout", views.logout_view, name="logout"),
     path('contact/', views.contactView, name='contact'),
     path('success/', views.successView, name='success'),
+    path('email/', TemplateView.as_view(template_name="mainapp/email.html"), name='email'),
 ]
