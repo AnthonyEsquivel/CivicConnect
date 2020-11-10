@@ -49,21 +49,19 @@ def logout_view(request):
     return redirect('')
     # Redirect to a success page.
 
-def contactView(request):
-    if request.method == 'GET':
-        form = ContactForm()
-    else:
+def sendEmail(request):
+    if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
-            subject = form.cleaned_data['subject']
-            to_email = form.cleaned_data['to_email']
-            message = form.cleaned_data['message']
+            subject = request.POST.get('subject')
+            to_email = request.POST.get('to_email')
+            message = request.POST.get('message')
             try:
-                send_mail(subject, message,'s.mehta0070@gmail.com', [to_email])
+                send_mail(subject, message,'civicconnect112@gmail.com', [to_email])
             except BadHeaderError:
                 return HttpResponse('Invalid header found.')
             return redirect('/success')
-    return render(request, "email.html", {'form': form})
+    return render(request, 'mainapp/sendEmail.html', context={'form': ContactForm})
 
 def successView(request):
     return render(request, "mainapp/success.html")
