@@ -6,6 +6,14 @@
 
 <form method="POST" action="{% url 'editProfile'%}" class="">
     {% csrf_token %}
+                <label>First Name</label>
+                <div>
+                <input type="text" class="form-control">
+                </div>
+                <label>Last Name</label>
+                <div>
+                <input type="text" class="form-control">
+                </div>
                 <label>Street</label>
                 <div>
                   <input type="text" class="form-control">
