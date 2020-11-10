@@ -37,11 +37,12 @@ def makeTemplate(request):
         postTemp = request.POST.get("temp_text")
         newTemplate = Template(temp_name=postName, temp_description=postDesc, temp_text=postTemp,owner=request.user)
         newTemplate.save()
+        return redirect('/profile')
     return render(request, 'mainapp/createTemp.html', context={'form': TemplateForm})
 
 def browseTemplates(request):
     publicTemps = []
-    for t in Template.objects.all():
+    for t in Template.objects.all().order_by('-pub_date'):
         if t.public:
             publicTemps.append(t)
     return render(request, "mainapp/browse.html", context={'templates': publicTemps})
