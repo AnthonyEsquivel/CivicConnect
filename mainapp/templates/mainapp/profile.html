@@ -39,13 +39,13 @@
     <form action="{% url 'mainapp:profile' %}" method="POST" class="address-form">
             {% csrf_token %}
             <div class="input-field">
-                <input id="address-input" type="text" name="address" value="Enter Your Address">
+                <input id="address-input" type="text" name="address" placeholder="Enter Your Address">
                 <span class="helper-text red-text" data-error="Please enter a valid address" data-success="Great!"></span>
             </div>
             <div class="btn-field">
                 <input id="rep-btn" class="btn" type="submit" name="representatives" value="Find Your Local Representatives">
             </div>
-        </form>
+    </form>
 
     {% if representatives %}
         <body id="reps">
@@ -69,6 +69,8 @@
                </div>
            </main>
         </body>
+    {% else %}
+        <h1> Please enter a valid address to see your representatives </h1>
    {% endif %}
 
 {% endblock %}

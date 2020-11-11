@@ -1,15 +1,17 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse
-from .models import Template
+from django.utils import timezone
+from .models import Template, MyUser
 from .forms import TemplateForm
 import requests
 import json
-from django.contrib.auth import logout
+from django.contrib.auth import get_user_model
 
 # Create your views here.
 
 # Getting the data from the model and pass it to the template
 # You can also get data from the template and put it into the model
+
 
 def index(request):
     return render(request, "mainapp/index.html")
@@ -18,15 +20,78 @@ def index(request):
 def news(request):
     return render(request, "mainapp/news.html")
 
+
 def profile(request):
     userTemps = []
     for t in Template.objects.all():
         if t.owner == request.user:
             userTemps.append(t)
+
+    # grab representatives based on address and API key --------------------------------------------------------------
+
+    # google api key
+    key = "AIzaSyAqg74M90_V9eS2j06NNzGK-PqRNZ9sbLg"
+
+    if request.method == 'POST' and 'representatives' in request.POST:
+        # create a new user w an address
+        if not request.user.myuser:
+            # make user address whatever person types into form
+            request.user.myuser = MyUser(address=request.POST['address'], member_since=timezone.now())
+        # update an existing user address
+        else:
+            request.user.myuser.address = request.POST['address']
+        # request.user.myuser.address = request.POST['address']
+        request.user.myuser.save()
+
+    # reference to user data on profile page (incase of empty form)
+    try:
+        address = request.user.myuser.address
+    except:
+        # imitation address for checking
+        address = '20361 Water Valley Ct, Sterling, VA 20165'
+
+    try:
+        url = f"https://civicinfo.googleapis.com/civicinfo/v2/representatives?address={address}&includeOffices=true&key={key}"
+        response = requests.get(url)
+
+        representatives = response.json()
+
+        json_reps = json.loads(response.text)
+        print(json_reps)
+        offices = json_reps['offices']
+
+        officials = json_reps['officials']
+        names = []
+        indices = []
+        test_representatives = {}
+
+        print(type(officials))
+
+        for official_idx, official in enumerate(officials):
+            test_representatives[official_idx] = official
+            for office_idx, office in enumerate(offices):
+                if official_idx in office['officialIndices']:
+                    test_representatives[official_idx]['office'] = office
+
+        # dict_items = test_representatives.items()
+        # return render(request, "mainapp/profile.html",
+        #               context={"address": address, "representatives": representatives,
+        #                        'test_representatives': test_representatives})
+
+    except KeyError:
+        # send back to profile we write error message
+        return render(request, "mainapp/profile.html", context={
+        'user': request.user,
+        'userTemps': userTemps,
+        "address": address})
+
+    # final view render
     return render(request, "mainapp/profile.html", context={
         'user': request.user,
-        'userTemps': userTemps
-    })
+        'userTemps': userTemps,
+        "address": address,
+        "representatives": representatives,
+        'test_representatives': test_representatives})
 
 
 def makeTemplate(request):
@@ -68,35 +133,3 @@ def logout_view(request):
     # auth_logout(request)
     return redirect('')
     # Redirect to a success page.
-
-# grab representatives based on address and API key
-def get_data(request):
-    address = request.POST['address']
-    key = "AIzaSyAqg74M90_V9eS2j06NNzGK-PqRNZ9sbLg"
-    if request.method == 'POST' and 'representatives' in request.POST:
-        try:
-            url = f"https://civicinfo.googleapis.com/civicinfo/v2/representatives?address={address}&includeOffices=true&key={key}"
-            response = requests.get(url)
-            representatives = response.json()
-            json_reps = json.loads(response.text)
-            offices = json_reps['offices']
-            officials = json_reps['officials']
-            names = []
-            indices = []
-            test_representatives = {}
-            print(type(officials))
-
-            for official_idx, official in enumerate(officials):
-                test_representatives[official_idx] = official
-                for office_idx, office in enumerate(offices):
-                    if official_idx in office['officialIndices']:
-                        test_representatives[official_idx]['office'] = office
-
-            dict_items = test_representatives.items()
-            return render(request, "mainapp/profile.html", context={"address": address, "representatives": representatives, 'test_representatives': test_representatives})
-
-        except KeyError:
-            # send to random page until we write error message
-            return render(request, "mainapp/news.html")
-    return
-
