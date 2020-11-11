@@ -37,7 +37,7 @@ def profile(request):
 
     if request.method == 'POST' and 'representatives' in request.POST:
         # create a new user w an address
-        if not request.user.myuser:
+        if not hasattr(request.user, 'myuser'):
             # make user address whatever person types into form
             request.user.myuser = MyUser(address=request.POST['address'], member_since=timezone.now())
         # update an existing user address
