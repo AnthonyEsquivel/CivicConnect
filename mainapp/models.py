@@ -31,7 +31,7 @@ class Template(models.Model):
 
 # extend a class so the user can have other fields added and stored
 class MyUser(models.Model):
-    address = models.CharField(max_length=40)
+    address = models.CharField(max_length=1000)
     member_since = models.DateTimeField()
     # get django defined user model, creates a one to one w this user
     # if you delete the django user, delete my user too
