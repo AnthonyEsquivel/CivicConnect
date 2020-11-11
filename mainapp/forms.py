@@ -1,5 +1,6 @@
 from django.forms import ModelForm
 from mainapp.models import Template
+from django import forms
 
 
 class TemplateForm(ModelForm):
@@ -15,3 +16,7 @@ class TemplateForm(ModelForm):
         # following line is for one item
         # self.fields['temp_name'].widget.attrs.update({'class': "form-control"})
 
+class ContactForm(forms.Form):
+    to_email = forms.EmailField(required=True)
+    subject = forms.CharField(required=True)
+    message = forms.CharField(widget=forms.Textarea, required=True)

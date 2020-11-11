@@ -1,11 +1,14 @@
-from django.shortcuts import get_object_or_404, render, redirect
-from django.http import HttpResponse
 from django.utils import timezone
 from .models import Template, MyUser
-from .forms import TemplateForm
 import requests
 import json
-from django.contrib.auth import get_user_model
+from django.shortcuts import  get_object_or_404, render, redirect
+from django.http import HttpResponse, HttpResponseRedirect
+from .models import Template
+from .forms import TemplateForm
+from django.contrib.auth import logout
+from .forms import ContactForm
+from django.core.mail import send_mail, BadHeaderError
 
 # Create your views here.
 
@@ -123,13 +126,42 @@ def templatePage(request, id):
         template.save(update_fields=["public"])
         return redirect('/profile')
     else:
-        # Add share fuctionality
-        send = "email"  # placeholder (no functionality)
+        #Add share functionality
+        if request.method == 'POST' and 'send' in request.POST:
+            form = ContactForm(request.POST)
+            if form.is_valid():
+                subject = request.POST.get('subject')
+                to_email = request.POST.get('to_email')
+                message = request.POST.get('message')
+                try:
+                    send_mail(subject, message,'civicconnect112@gmail.com', [to_email])
+                except BadHeaderError:
+                    return HttpResponse('Invalid header found.')
+                return redirect('/success')
+    return render(request, 'mainapp/tempPage.html', context= {'user':request.user,'template': template, 'form': ContactForm})
 
-    return render(request, 'mainapp/tempPage.html', context={'user': request.user, 'template': template})
 
 def logout_view(request):
     # commented out bc it was an error
     # auth_logout(request)
     return redirect('')
     # Redirect to a success page.
+
+
+def sendEmail(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            subject = request.POST.get('subject')
+            to_email = request.POST.get('to_email')
+            message = request.POST.get('message')
+            try:
+                send_mail(subject, message,'civicconnect112@gmail.com', [to_email])
+            except BadHeaderError:
+                return HttpResponse('Invalid header found.')
+            return redirect('/success')
+    return render(request, 'mainapp/sendEmail.html', context={'form': ContactForm})
+
+
+def successView(request):
+    return render(request, "mainapp/success.html")
