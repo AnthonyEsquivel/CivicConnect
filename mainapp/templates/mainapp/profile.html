@@ -6,6 +6,7 @@
     <h3>Please login to view your profile</h3>
 {% else %} 
 <h3>My Information</h3>
+
 <!-- user information -->
 <h5> {{ user }} </h5>
 <a>Email: {{user.email}}</a>
@@ -32,5 +33,45 @@
     {% endfor %}
 </div>
 {% endif %}
+
+<!-- display representatives based on your address -->
+
+    <form action="{% url 'mainapp:profile' %}" method="POST" class="address-form">
+            {% csrf_token %}
+            <div class="input-field">
+                <input id="address-input" type="text" name="address" placeholder="Enter Your Address">
+                <span class="helper-text red-text" data-error="Please enter a valid address" data-success="Great!"></span>
+            </div>
+            <div class="btn-field">
+                <input id="rep-btn" class="btn" type="submit" name="representatives" value="Find Your Local Representatives">
+            </div>
+    </form>
+
+    {% if representatives %}
+        <body id="reps">
+           <main id="rep-main">
+               <div class="rep-display">
+                   <table class="highlight responsive-table card-content">
+                       <thead>
+                           <th class="table-headers-A">Office</th>
+                           <th class="table-headers-B">Current Occupant</th>
+                       </thead>
+                       <tbody>
+                           {% for key, value in test_representatives.items %}
+                           {{ test_representatives | json_script:"test_representatives"}}
+                           <tr>
+                               <td class="table-content-A">{{ value.office.name }}</td>
+                               <td class="table-content-B">{{ value.name }}</td>
+                           </tr>
+                           {% endfor %}
+                       </tbody>
+                   </table>
+               </div>
+           </main>
+        </body>
+    {% else %}
+        <h1> Please enter a valid address to see your representatives </h1>
+   {% endif %}
+
 {% endblock %}
 
