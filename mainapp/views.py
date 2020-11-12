@@ -2,7 +2,7 @@ from django.shortcuts import  get_object_or_404, render, reverse
 from django.views.generic.edit import UpdateView
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Template, Profile
-from .forms import TemplateForm, EditProfileForm
+from .forms import TemplateForm
 from django.contrib.auth import logout
 
 
@@ -22,20 +22,21 @@ def profile(request):
         'user': request.user,
         'templates': Template.objects.all()
     })
-def edit_profile(request):
-    #newProfile = Profile(first_name="", last_name="", location="")
-    form = EditProfileForm(request.POST)
-    if request.method == 'POST':
-        if form.is_valid():
-            user.first_name = request.POST['first_name']
-            user.last_name = request.POST['last_name']
-            user.location  = request.POST['location']
-            user.save()
-            return HttpResponseRedirect('%s'%(reverse('profile')))
-    context = {
-        "form": form
-    }
-    return render(request, "mainapp/editProfile.html", context)
+def edit_profile(request, user_id):
+    user = User.objects.get(pk=user_id)
+    #if request.method == 'POST':
+        #edit_form = EditProfileForm(request.POST)
+        #user_form = UserForm(request.POST, instance=request.user)
+        #if edit_form.is_valid() and user_form.is_valid():
+    user.profile.location  = request.POST['location']
+    user.save()
+            #return HttpResponseRedirect('%s'%(reverse('profile')))
+    
+    #context = {
+        #'user_form': user_form,
+        #'profile_form': profile_form
+    #}
+    #return render(request, "mainapp/editProfile.html", context)
 
 
 def makeTemplate(request):
