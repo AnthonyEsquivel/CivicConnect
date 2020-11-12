@@ -1,10 +1,9 @@
-{% extends "mainapp/base.html" %}
-
+{% extends 'mainapp/base.html' %}
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 {% block content %}
-
-<h1>Edit Profile</h1>              
-
-<form method="POST" action="{% url 'editProfile'%}" class="">
+<h1>Edit Profile</h1>
+<!-- user information -->  
+<form method="POST" action="{% url 'mainapp:editProfile'%}" class="">
     {% csrf_token %}
                 <label>First Name</label>
                 <div>
@@ -30,11 +29,6 @@
                 <div>
                   <input type="text" class="form-control">
                 </div>
-                <div>
-                    <button type="submit" class="btn btn-primary">Get Representative Info</button>
-                </div>
     <button type="submit">Save</button>
 </form>
-
-
 {% endblock %}

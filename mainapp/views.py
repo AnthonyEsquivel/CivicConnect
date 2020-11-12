@@ -23,7 +23,7 @@ def profile(request):
         'templates': Template.objects.all()
     })
 def edit_profile(request):
-    newProfile = Profile(first_name="", last_name="", location="")
+    #newProfile = Profile(first_name="", last_name="", location="")
     form = EditProfileForm(request.POST)
     if request.method == 'POST':
         if form.is_valid():

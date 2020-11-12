@@ -20,8 +20,3 @@ class EditProfileForm(ModelForm):
         model = Profile
         fields = ['first_name', 'last_name', 'location']
 
-    def __init__(self, *args, **kwargs):
-        super(ModelForm, self).__init__(*args, **kwargs)
-
-        profile = kwargs.get('instance')
-

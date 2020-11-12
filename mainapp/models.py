@@ -16,6 +16,9 @@ class Profile(models.Model):
     first_name = models.CharField(max_length=200, blank=True)
     last_name = models.CharField(max_length=200, blank=True) 
 
+    def __str__(self):
+        return self.user.email
+
 class Template(models.Model):
     temp_name = models.CharField(max_length=200)
     temp_description = models.TextField()
