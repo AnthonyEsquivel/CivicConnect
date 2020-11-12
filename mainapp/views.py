@@ -23,6 +23,7 @@ def profile(request):
         'templates': Template.objects.all()
     })
 def edit_profile(request):
+    form = EditProfileForm(request.POST)
     newProfile = Profile(first_name="", last_name="", location="")
     form = EditProfileForm(request.POST)
     if request.method == 'POST':
@@ -32,8 +33,9 @@ def edit_profile(request):
             user.location  = request.POST['location']
             user.save()
             return HttpResponseRedirect('%s'%(reverse('profile')))
+        
     context = {
-        "form": form
+        'form':form
     }
     return render(request, "mainapp/editProfile.html", context)
 
