@@ -1,9 +1,8 @@
 from django.shortcuts import  get_object_or_404, render, reverse
+from django.views.generic.edit import UpdateView
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import Template
-from .models import Profile
-from .forms import TemplateForm
-from .forms import EditProfileForm
+from .models import Template, Profile
+from .forms import TemplateForm, EditProfileForm
 from django.contrib.auth import logout
 
 
@@ -24,19 +23,20 @@ def profile(request):
         'templates': Template.objects.all()
     })
 def edit_profile(request):
-    user = request.user
-    form = EditProfileForm(request.POST or None, initial={'first_name':user.first_name, 'last_name':user.last_name, 'location':user.location})
+    newProfile = Profile(first_name="", last_name="", location="")
+    form = EditProfileForm(request.POST)
     if request.method == 'POST':
         if form.is_valid():
             user.first_name = request.POST['first_name']
             user.last_name = request.POST['last_name']
-            user.location = request.POST['location']
+            user.location  = request.POST['location']
             user.save()
             return HttpResponseRedirect('%s'%(reverse('profile')))
     context = {
         "form": form
     }
     return render(request, "mainapp/editProfile.html", context)
+
 
 def makeTemplate(request):
     if request.method == 'POST':
