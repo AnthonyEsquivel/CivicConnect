@@ -19,8 +19,6 @@
   <h1 class="display-5">Create Your Email:</h1>
     <form method='POST' >
       {% csrf_token %}
-      <!--{{form2.as_p}}-->
-      <!--Template Name Box-->
       <div class="form-group text-left">
           <label>To email:</label>
           <br>
@@ -53,5 +51,15 @@
     var tempsubj= document.getElementById("tempsubj").innerHTML;
     document.getElementById("subject").value=tempsubj;
 </script>
+        <h1>Your Representatives</h1>
+    <form method='POST' >
+      <p>Send To:</p>
+      <input type="radio" id="male" name="gender" value="male">
+      <label for="male">Male</label><br>
+      <input type="radio" id="female" name="gender" value="female">
+      <label for="female">Female</label><br>
+      <input type="radio" id="other" name="gender" value="other">
+      <label for="other">Other</label>
+    </form>
 
 {% endblock %}

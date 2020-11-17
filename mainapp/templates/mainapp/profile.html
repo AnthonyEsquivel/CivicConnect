@@ -60,7 +60,7 @@
                            {% for key, value in test_representatives.items %}
                            {{ test_representatives | json_script:"test_representatives"}}
                            <tr>
-                               <td class="table-content-A">{{ value.office.name }}</td>
+                               <td class="table-content-A">{{ value.emails }}</td>
                                <td class="table-content-B">{{ value.name }}</td>
                            </tr>
                            {% endfor %}
