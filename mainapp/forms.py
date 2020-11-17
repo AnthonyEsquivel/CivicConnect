@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from mainapp.models import Template, Profile
-
+from django.contrib.auth.models import User
 
 class TemplateForm(ModelForm):
     class Meta:
@@ -15,8 +15,9 @@ class TemplateForm(ModelForm):
         # following line is for one item
         # self.fields['temp_name'].widget.attrs.update({'class': "form-control"})
 
-class EditProfileForm(ModelForm):
-    class Meta:
-        model = Profile
-        fields = ['first_name', 'last_name', 'location']
+
+#class EditProfileForm(ModelForm):
+    #class Meta:
+        #model = Profile
+        #fields = ['location']
 
