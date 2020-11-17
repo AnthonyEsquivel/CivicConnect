@@ -15,6 +15,8 @@ from django.core.mail import send_mail, BadHeaderError
 # Getting the data from the model and pass it to the template
 # You can also get data from the template and put it into the model
 
+# google api key
+key = "AIzaSyAqg74M90_V9eS2j06NNzGK-PqRNZ9sbLg"
 
 def index(request):
     return render(request, "mainapp/index.html")
@@ -32,9 +34,6 @@ def profile(request):
 
     # grab representatives based on address and API key --------------------------------------------------------------
 
-    # google api key
-    key = "AIzaSyAqg74M90_V9eS2j06NNzGK-PqRNZ9sbLg"
-
     if request.method == 'POST' and 'representatives' in request.POST:
         # create a new user w an address
         if not hasattr(request.user, 'myuser'):
@@ -51,7 +50,7 @@ def profile(request):
         address = request.user.myuser.address
     except:
         # imitation address for checking
-        address = '20361 Water Valley Ct, Sterling, VA 20165'
+        address = '1826 University Ave, Charlottesville, VA 22904'
 
     try:
         url = f"https://civicinfo.googleapis.com/civicinfo/v2/representatives?address={address}&includeOffices=true&key={key}"
@@ -60,15 +59,10 @@ def profile(request):
         representatives = response.json()
 
         json_reps = json.loads(response.text)
-        print(json_reps)
         offices = json_reps['offices']
 
         officials = json_reps['officials']
-        names = []
-        indices = []
         test_representatives = {}
-
-        print(type(officials))
 
         for official_idx, official in enumerate(officials):
             test_representatives[official_idx] = official
@@ -133,8 +127,40 @@ def templatePage(request, id):
                 except BadHeaderError:
                     return HttpResponse('Invalid header found.')
                 return redirect('/success')
-    return render(request, 'mainapp/tempPage.html', context= {'user':request.user,'template': template, 'form': ContactForm})
 
+    # getting address and representatives-----------------------------------------------------
+    try:
+        address = request.user.myuser.address
+    except:
+        # imitation address for checking
+        address = '1826 University Ave, Charlottesville, VA 22904'
+
+    try:
+        url = f"https://civicinfo.googleapis.com/civicinfo/v2/representatives?address={address}&includeOffices=true&key={key}"
+        response = requests.get(url)
+        representatives = response.json()
+        json_reps = json.loads(response.text)
+        offices = json_reps['offices']
+        officials = json_reps['officials']
+        test_representatives = {}
+
+        for official_idx, official in enumerate(officials):
+            test_representatives[official_idx] = official
+            for office_idx, office in enumerate(offices):
+                if official_idx in office['officialIndices']:
+                    test_representatives[official_idx]['office'] = office
+
+    except KeyError:
+        # send back to profile we write error message
+        return render(request, "mainapp/profile.html", context={
+        'user': request.user})
+
+    # final view
+    return render(request, 'mainapp/tempPage.html', context= {'user':request.user,
+                                                              'template': template,
+                                                              'form': ContactForm, "address": address,
+                                                              "representatives": representatives,
+                                                              'test_representatives': test_representatives})
 
 def logout_view(request):
     # commented out bc it was an error
@@ -160,3 +186,4 @@ def sendEmail(request):
 
 def successView(request):
     return render(request, "mainapp/success.html")
+

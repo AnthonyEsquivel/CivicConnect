@@ -8,7 +8,7 @@ class TemplateForm(ModelForm):
         model = Template
         fields = ['temp_name', 'temp_description', 'temp_text', 'tags', 'owner']
 
-    # applying the css styling to the template name input box
+    # applying the mainapp styling to the template name input box
     def __init__(self, *args, **kwargs):
         super(ModelForm, self).__init__(*args, **kwargs)
         for field in self.fields.values():

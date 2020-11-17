@@ -9,7 +9,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'mainapp/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'mainapp/../../static/style.css' %}">
 </head>
 
 <head>
@@ -54,11 +54,6 @@
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
-                <!-- <a href="" onclick="signOut();">Sign out</a> -->
-                <!--  Search bar
-                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                -->
             </form>
         </div>
         </nav>
@@ -67,46 +62,8 @@
         <html lang="en">
         <head>
 
-        <!-- <meta name="google-signin-scope" content="profile email">
-        <meta name="google-signin-client_id" content="206999216472-rpndm6204nui9s2dvgkl9va6c8v6lume.apps.googleusercontent.com">
-        <script src="https://apis.google.com/js/platform.js" async defer></script>
-        </head>
-        <body>
-        <script>
-          function onSignIn(googleUser) {
-            // Useful data for your client-side scripts:
-            var profile = googleUser.getBasicProfile();
-            var fullname=profile.getName();
-            console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-            console.log('Full Name: ' + profile.getName());
-            console.log('Given Name: ' + profile.getGivenName());
-            console.log('Family Name: ' + profile.getFamilyName());
-            console.log("Image URL: " + profile.getImageUrl());
-            console.log("Email: " + profile.getEmail());
-
-            // The ID token you need to pass to your backend:
-            var id_token = googleUser.getAuthResponse().id_token;
-            console.log("ID Token: " + id_token);
-            document.getElementById('hellouser').innerHTML="Hello "+fullname+"!";
-          }
-        </script> -->
-        </body>
-        </html>
-        <!--Google sign out-->
-        <!-- <script>
-        function signOut() {
-            var auth2 = gapi.auth2.getAuthInstance();
-            auth2.signOut().then(function () {
-            console.log('User signed out.');
-            document.getElementById('hellouser').innerHTML="";
-            });
-        }
-        </script> -->
-
 	<title>{% block title %}Civic Connect Site{% endblock %}</title>
 </head>
-
-
 
 <body>
     <div class="content container">
