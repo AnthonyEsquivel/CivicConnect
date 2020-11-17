@@ -2,7 +2,7 @@
 {% block content %}
   <h1 id="tempsubj">{{template.temp_name}}</h1>
   <h3>Description: {{template.temp_description}}</h3>
-  <h3>Template: </h3>
+  <h3>Template Message: </h3>
   <p id="templatetext">{{template.temp_text}}</p>
   {% if template.owner == user %}
     <!--input class="btn btn-primary" href="/profile" type="submit" name="publish" value="Publish" /-->
@@ -22,14 +22,12 @@
       <div class="form-group text-left">
           <label>To email:</label>
           <br>
-  <!--        <input type="text" class="form-control" name="temp_name" placeholder="Enter name">-->
           {{form.to_email}}
       </div>
       <!--Template Description Box-->
       <div class="form-group text-left">
           <label>Subject:</label>
           <br>
-  <!--        <input type="textarea" class="form-control" name="temp_description" row="2"></input>-->
             <input type="text" id="subject" name="subject">
           <!-- {{form.subject}} -->
       </div>
@@ -37,11 +35,31 @@
       <div class="form-group text-left">
           <label>Message:</label>
           <br>
-  <!--        <textarea class="form-control" name="temp_text" rows="15"></textarea>-->
                 <textarea class="form-control" id="message" name="message" rows="15"></textarea>
-                <!-- <input type="text" id="message" name="message"> -->
           <!-- {{form.message}} -->
       </div>
+
+        <!-- Representatives List  ---------------------------------------------------------------------------------- -->
+        <h1>Your Representatives</h1>
+            <br>
+            {% if representatives %}
+            <form method='POST' >
+            {% csrf_token %}
+            <p>Send To:</p>
+            <div class="vertical-radio-buttons">
+                {% for key, value in test_representatives.items %}
+                    <!-- only print representative that has an associated email -->
+                    {% if value.emails %}
+                        <input type="radio" name="radios" id="radio-multiline"/>
+                        <label for="radio-multiline">{{ value.name }}<br/>{{ value.office.name }}<br/>{{ value.emails }}</label><br><br>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            </form>
+                {% else %}
+                <h1> Please enter a valid address to see your representatives </h1>
+           {% endif %}
+
       <!--Submit Template Button-->
       <button type="submit" name="send" class="btn btn-primary">Send to Representative</button>
     </form>
@@ -51,15 +69,5 @@
     var tempsubj= document.getElementById("tempsubj").innerHTML;
     document.getElementById("subject").value=tempsubj;
 </script>
-        <h1>Your Representatives</h1>
-    <form method='POST' >
-      <p>Send To:</p>
-      <input type="radio" id="male" name="gender" value="male">
-      <label for="male">Male</label><br>
-      <input type="radio" id="female" name="gender" value="female">
-      <label for="female">Female</label><br>
-      <input type="radio" id="other" name="gender" value="other">
-      <label for="other">Other</label>
-    </form>
 
 {% endblock %}

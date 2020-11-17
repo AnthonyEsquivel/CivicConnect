@@ -6,13 +6,14 @@
     <h3>Please login to view your profile</h3>
 {% else %} 
 <h3>My Information</h3>
-
+ <br>
 <!-- user information -->
 <h5> {{ user }} </h5>
 <a>Email: {{user.email}}</a>
-
+ <br> <br>
 <h3>My Templates</h3> 
 <a> -- Choose a template then click Publish to make the template publicly available --</a>
+    <br>
 
 <!-- for all the templates, grab the name -->
 
@@ -33,7 +34,7 @@
     {% endfor %}
 </div>
 {% endif %}
-
+<br>
 <!-- display representatives based on your address -->
 
     <form action="{% url 'mainapp:profile' %}" method="POST" class="address-form">
@@ -47,31 +48,31 @@
             </div>
     </form>
 
-    {% if representatives %}
-        <body id="reps">
-           <main id="rep-main">
-               <div class="rep-display">
-                   <table class="highlight responsive-table card-content">
-                       <thead>
-                           <th class="table-headers-A">Office</th>
-                           <th class="table-headers-B">Current Occupant</th>
-                       </thead>
-                       <tbody>
-                           {% for key, value in test_representatives.items %}
-                           {{ test_representatives | json_script:"test_representatives"}}
-                           <tr>
-                               <td class="table-content-A">{{ value.emails }}</td>
-                               <td class="table-content-B">{{ value.name }}</td>
-                           </tr>
-                           {% endfor %}
-                       </tbody>
-                   </table>
-               </div>
-           </main>
-        </body>
-    {% else %}
-        <h1> Please enter a valid address to see your representatives </h1>
-   {% endif %}
+        {% if representatives %}
+            <body id="reps">
+               <main id="rep-main">
+                   <div class="rep-display">
+                       <table class="highlight responsive-table card-content">
+                           <thead>
+                               <th class="table-headers-A">Office</th>
+                               <th class="table-headers-B">Current Occupant</th>
+                           </thead>
+                           <tbody>
+                               {% for key, value in test_representatives.items %}
+                               {{ test_representatives | json_script:"test_representatives"}}
+                               <tr>
+                                   <td class="table-content-A">{{ value.emails }}</td>
+                                   <td class="table-content-B">{{ value.name }}</td>
+                               </tr>
+                               {% endfor %}
+                           </tbody>
+                       </table>
+                   </div>
+               </main>
+            </body>
+        {% else %}
+            <h1> Please enter a valid address to see your representatives </h1>
+       {% endif %}
 
 {% endblock %}
 

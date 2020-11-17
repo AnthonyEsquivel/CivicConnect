@@ -1,0 +1,42 @@
+p {
+  font: normal normal 18px/40px Poppins;
+}
+
+h1 {
+  font: normal normal 600 72px/60px Poppins;
+}
+
+h2 {
+  font: normal normal 600 30px/42px Poppins;
+}
+
+nav {
+  font: normal normal 15px/30px Poppins;
+}
+
+/* ----------------- radio button styling ------------------- */
+
+.vertical-radio-buttons div {
+  display: block;
+  padding: 0 0 5px 5px;
+  clear: both;
+}
+
+.vertical-radio-buttons span {
+  display: block;
+  padding-left: 20px;
+  cursor: inherit;
+}
+
+.vertical-radio-buttons label {
+  font: normal normal 18px/26px Poppins;
+}
+
+.vertical-radio-buttons input {
+  float: left;
+  width: 20px;
+  margin-left: -20px;
+  margin-top: 6px; // vertically align radio button with text
+  padding: 0;
+  -webkit-appearance: radio;
+}
