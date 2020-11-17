@@ -43,6 +43,14 @@
             <li class="nav-item">
                 <a class="nav-link disabled" href="" id="hellouser"></a>
               </li>
+
+			  {% if user.is_authenticated %}
+			  <div class="float-right">
+			  <li class="nav-item">
+  				<a class="btn btn-primary btn-block " href="{% url 'logout' %}">Log out</a>
+				</li>
+				<div class="float-right">
+				{% endif %}
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
@@ -107,7 +115,7 @@
             <div class="col-md-8">
                 {% if user.is_authenticated %}
                 <p>Welcome, {{ user.username }} !</p>
-                <a class="btn btn-primary btn-lg btn-block" href="{% url 'logout' %}">Log out</a>
+                <!-- <a class="btn btn-primary btn-lg btn-block" href="{% url 'logout' %}">Log out</a> -->
                 {% else %}
                   <a class="btn btn-primary btn-lg btn-block" href="{% provider_login_url 'google' %}">Log in</a>
                 {% endif %}
