@@ -7,7 +7,7 @@ a {
 }
 
 h1 {
-  font: normal normal 600 72px/60px Poppins;
+  font: normal normal 400 40px/60px Poppins;
 }
 
 h2 {
@@ -17,6 +17,64 @@ h2 {
 nav {
   font: normal normal 15px/30px Poppins;
 }
+
+.button {
+  font: normal normal 18px/40px Poppins;
+}
+
+.button2 {
+  background: #EBF9EA 0% no-repeat padding-box;
+  border-radius: 28px;
+  border: none;
+  color: #33C534;
+  padding: 3px 15px;
+  text-align: center;
+  display: inline-block;
+  font-size: 12px;
+  margin: 6px;
+}
+
+html {
+height: 100%;
+box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+box-sizing: inherit;
+}
+
+body {
+position: relative;
+margin: 0;
+padding-bottom: 6rem;
+min-height: 100%;
+font: normal normal 18px/40px Poppins;
+}
+
+.demo {
+margin: 0 auto;
+padding-top: 64px;
+max-width: 640px;
+width: 94%;
+}
+
+.demo h1 {
+margin-top: 0;
+}
+
+.footer {
+position: absolute;
+right: 0;
+bottom: 0;
+left: 0;
+padding: 1rem;
+background-color: white;
+text-align: center;
+}
+
+body {background-color: #F4F7FC;}
 
 /* ----------------- radio button styling ------------------- */
 
@@ -44,3 +102,5 @@ nav {
   padding: 0;
   -webkit-appearance: radio;
 }
+
+/* -------------------- fav button ---------------------------- */
