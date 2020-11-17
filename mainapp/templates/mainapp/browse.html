@@ -1,6 +1,16 @@
 {% extends 'mainapp/base.html' %}
 
 {% block content %}
+<div class="list-group">
+<a href="/createTemp" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">Create New Template</h5>
+      <small>Click here to create new email template</small>
+    </div>
+    <p class="mb-1">{{template.temp_description}}</p>
+  </a>
+</div>
+<br>
 
 {% if templates %}
     <div class="list-group">
@@ -13,6 +23,7 @@
                 <p class="mb-1">{{template.temp_description}}</p>
               </a>
         {% endfor %}
+
     </div>
     {% else %}
         <p>No templates are available.</p>
