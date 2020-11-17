@@ -76,11 +76,6 @@ def profile(request):
                 if official_idx in office['officialIndices']:
                     test_representatives[official_idx]['office'] = office
 
-        # dict_items = test_representatives.items()
-        # return render(request, "mainapp/profile.html",
-        #               context={"address": address, "representatives": representatives,
-        #                        'test_representatives': test_representatives})
-
     except KeyError:
         # send back to profile we write error message
         return render(request, "mainapp/profile.html", context={
