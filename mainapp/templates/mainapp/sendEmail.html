@@ -7,21 +7,21 @@
     {% csrf_token %}
     <!--Template Name Box-->
     <div class="form-group text-left">
-        <label>To email:</label>
+        <a>Recipient:</a>
         <br>
 <!--        <input type="text" class="form-control" name="temp_name" placeholder="Enter name">-->
         {{form.to_email}}
     </div>
     <!--Template Description Box-->
     <div class="form-group text-left">
-        <label>Subject:</label>
+        <a>Subject:</a>
         <br>
 <!--        <input type="textarea" class="form-control" name="temp_description" row="2"></input>-->
         {{form.subject}}
     </div>
     <!--Template Text Box-->
     <div class="form-group text-left">
-        <label>Message:</label>
+        <a>Message:</a>
         <br>
 <!--        <textarea class="form-control" name="temp_text" rows="15"></textarea>-->
         {{form.message}}
