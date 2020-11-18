@@ -1,13 +1,13 @@
 {% extends 'mainapp/base.html' %}
 {% block content %}
   <h1 id="tempsubj">{{template.temp_name}}</h1>
-  <h3>Description: {{template.temp_description}}</h3>
+  <h3>{{template.temp_description}}</h3>
   <h3>Template Message: </h3>
   <p id="templatetext">{{template.temp_text}}</p>
   {% if template.owner == user %}
     <!--input class="btn btn-primary" href="/profile" type="submit" name="publish" value="Publish" /-->
     {% if template.public %}
-    <p>You have published this template and it is available to the public.</p>
+    <p style="color:rgb(100, 209, 100)">You have published this template and it is available to the public.</p>
     {% else %}
     <form method='POST' >
       {% csrf_token %}
@@ -16,19 +16,14 @@
     </form>
     {% endif %}
   {% endif %}
-  <h1 class="display-5">Create Your Email:</h1>
+  <h1 class="display-5">Create Your Email</h1>
     <form method='POST' >
       {% csrf_token %}
-      <div class="form-group text-left">
-          <label>To email:</label>
-          <br>
-          {{form.to_email}}
-      </div>
       <!--Template Description Box-->
       <div class="form-group text-left">
           <label>Subject:</label>
           <br>
-            <input type="text" id="subject" name="subject">
+            <input type="text" id="subject" size=70 name="subject">
           <!-- {{form.subject}} -->
       </div>
       <!--Template Text Box-->
@@ -38,14 +33,18 @@
                 <textarea class="form-control" id="message" name="message" rows="15"></textarea>
           <!-- {{form.message}} -->
       </div>
-
+      
+      <h1>Send To</h1>
+      <div class="form-group text-left">
+        <label>Custom Email:</label>
+        <br>
+        {{form.to_email}}
+      </div>
         <!-- Representatives List  ---------------------------------------------------------------------------------- -->
-        <h1>Your Representatives</h1>
-            <br>
             {% if representatives %}
             <form method='POST' >
             {% csrf_token %}
-            <p>Send To:</p>
+            <p>Your Representatives:</p>
             <div class="vertical-radio-buttons">
                 {% for key, value in test_representatives.items %}
                     <!-- only print representative that has an associated email -->

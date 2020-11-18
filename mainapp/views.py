@@ -85,6 +85,22 @@ def profile(request):
         "representatives": representatives,
         'test_representatives': test_representatives})
 
+def edit_profile(request):
+    if request.method == 'POST':
+        request.user.first_name = request.POST['fname']
+        request.user.last_name = request.POST['lname']
+        if not hasattr(request.user, 'myuser'):
+            request.user.myuser = MyUser(address=request.POST['address'], member_since=timezone.now())
+        else:
+            request.user.myuser.address = request.POST['address']
+        request.user.myuser.save()
+        request.user.save()
+        return redirect('/profile')
+    try:
+        address = request.user.myuser.address
+    except:
+        address = '1826 University Ave, Charlottesville, VA 22904'
+    return render(request, "mainapp/editProfile.html", context= {'user':request.user,"address": address})
 
 def makeTemplate(request):
     if request.method == 'POST':
@@ -121,7 +137,7 @@ def templatePage(request, id):
             if form.is_valid():
                 subject = request.POST.get('subject')
                 to_email = request.POST.get('to_email')
-                message = request.POST.get('message')
+                message = request.POST.get('message')   
                 try:
                     send_mail(subject, message,'civicconnect112@gmail.com', [to_email])
                 except BadHeaderError:
