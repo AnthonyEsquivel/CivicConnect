@@ -9,18 +9,32 @@
     {% if not user.is_authenticated %}
         <h3>Please login to view your profile</h3>
     {% else %}
-    <h3>My Information</h3>
-     <br>
+
     <!-- user information -->
-    <h5> {{ user }} </h5>
-    <a>Email: {{user.email}}</a>
-     <br> <br>
+    <form class="form-horizontal">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">My Information</h3>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <a>Name: {{ user.get_full_name }} </a><br>
+                    <a>Email: {{user.email}}</a><br>
+                    <a>Address: {{address}}</a>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                        <input type = button class="btn btn-primary" onclick = "location.href='/editProfile'" value='Edit Profile'>
+                </div>
+            </div>
+        </div>
+    </form>
     <h3>My Templates</h3>
     <a> -- Choose a template then click Publish to make the template publicly available --</a>
         <br>
 
 <!-- for all the templates, grab the name -->
-
 <div class="list-group">
     {% for template in userTemps %}
         <a href="/{{template.id}}" class="list-group-item list-group-item-action flex-column align-items-start">
@@ -39,12 +53,14 @@
 </div>
 {% endif %}
 <br>
-<!-- display representatives based on your address -->
 
+<h3>My Representatives</h3>
+<!-- display representatives based on your address -->
     <form action="{% url 'mainapp:profile' %}" method="POST" class="address-form">
             {% csrf_token %}
             <div class="input-field">
-                <input id="address-input" type="text" name="address" placeholder="Enter Your Address"><br>
+                <label>Enter Address:</label>
+                <input id="address-input" type="text" name="address" size=65 value="{{address}}"><br>
                 <span class="helper-text red-text" data-error="Please enter a valid address" data-success="Great!"><br></span>
             </div>
             <div class="btn-field">
@@ -76,7 +92,7 @@
                </main>
             </body>
         {% else %}
-            <h1> Please enter a valid address to see your representatives </h1>
+            <h1> Please enter a full and valid address to see your representatives </h1>
        {% endif %}
 
 {% endblock %}
