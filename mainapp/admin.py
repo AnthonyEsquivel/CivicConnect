@@ -5,3 +5,4 @@ from .models import Template
 class TemplateAdmin(admin.ModelAdmin):
     model = Template
 admin.site.register(Template)
+

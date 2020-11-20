@@ -99,13 +99,13 @@ def makeTemplate(request):
         newTemplate.save()
         return redirect('/profile')
     return render(request, 'mainapp/createTemp.html', context={'form': TemplateForm})
-
-
+    
 def browseTemplates(request):
+    queryset = Template.objects.all().order_by('-pub_date').filter(is_approved=True)
     publicTemps = []
-    for t in Template.objects.all().order_by('-pub_date'):
-        if t.public:
-            publicTemps.append(t)
+    for q in queryset:
+        if q.public:
+            publicTemps.append(q)
     return render(request, "mainapp/browse.html", context={'templates': publicTemps})
 
 
@@ -187,4 +187,6 @@ def sendEmail(request):
 
 def successView(request):
     return render(request, "mainapp/success.html")
+
+
 
