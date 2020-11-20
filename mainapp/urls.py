@@ -11,6 +11,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('createTemp/', views.makeTemplate, name='createTemp'),
     path('profile/', views.profile, name='profile'),
+    path('editProfile/', views.edit_profile, name='editProfile'),
     path('browse/', views.browseTemplates, name='browse'),
     path("<int:id>", views.templatePage, name="templatePage"),
     path('news/', views.news, name='news'),
