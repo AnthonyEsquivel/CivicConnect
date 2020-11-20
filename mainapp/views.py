@@ -7,6 +7,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from .models import Template
 from .forms import TemplateForm
 from django.contrib.auth import logout
+from django.contrib import messages
 from .forms import ContactForm
 from django.core.mail import send_mail, BadHeaderError
 
@@ -156,7 +157,7 @@ def templatePage(request, id):
         'user': request.user})
 
     # final view
-    return render(request, 'mainapp/tempPage.html', context= {'user':request.user,
+    return render(request, 'mainapp/tempPage.html', context= {'user':request.user, 
                                                               'template': template,
                                                               'form': ContactForm, "address": address,
                                                               "representatives": representatives,

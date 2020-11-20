@@ -39,6 +39,21 @@
 </div>
 {% endif %}
 <br>
+
+<h3>Tagged Templates</h3>
+        <br>
+<div class="list-group">
+    {% for template in favoritedTemps %}
+        <a href="/{{template.id}}" class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">{{template.temp_name}}</h5>
+            <small>Created {{template.pub_date}}</small>
+            </div>
+            <p class="mb-1">{{template.temp_description}}</p>
+        </a>
+    {% endfor %}
+</div>
+
 <!-- display representatives based on your address -->
 
     <form action="{% url 'mainapp:profile' %}" method="POST" class="address-form">
