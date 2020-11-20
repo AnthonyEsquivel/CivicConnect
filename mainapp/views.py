@@ -7,6 +7,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from .models import Template
 from .forms import TemplateForm
 from django.contrib.auth import logout
+from django.contrib import messages
 from .forms import ContactForm
 from django.core.mail import send_mail, BadHeaderError
 
@@ -114,13 +115,13 @@ def makeTemplate(request):
         newTemplate.save()
         return redirect('/profile')
     return render(request, 'mainapp/createTemp.html', context={'form': TemplateForm})
-
-
+    
 def browseTemplates(request):
+    queryset = Template.objects.all().order_by('-pub_date').filter(is_approved=True)
     publicTemps = []
-    for t in Template.objects.all().order_by('-pub_date'):
-        if t.public:
-            publicTemps.append(t)
+    for q in queryset:
+        if q.public:
+            publicTemps.append(q)
     return render(request, "mainapp/browse.html", context={'templates': publicTemps})
 
 
@@ -172,7 +173,7 @@ def templatePage(request, id):
         'user': request.user})
 
     # final view
-    return render(request, 'mainapp/tempPage.html', context= {'user':request.user,
+    return render(request, 'mainapp/tempPage.html', context= {'user':request.user, 
                                                               'template': template,
                                                               'form': ContactForm, "address": address,
                                                               "representatives": representatives,
@@ -202,4 +203,6 @@ def sendEmail(request):
 
 def successView(request):
     return render(request, "mainapp/success.html")
+
+
 

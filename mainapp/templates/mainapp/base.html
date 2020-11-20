@@ -68,7 +68,11 @@
         <div class="row">
             <div class="col-md-8">
                 {% if user.is_authenticated %}
+<<<<<<< HEAD
                 <!--<p>Welcome, {{ user.get_short_name }}!  </p> -->
+=======
+                <p>Welcome, {{ user.first_name }}!</p>
+>>>>>>> origin/styling
                 <!-- <a class="btn btn-primary btn-lg btn-block" href="{% url 'logout' %}">Log out</a> -->
                 {% else %}
                   <a class="btn btn-primary btn-lg btn-block" href="{% provider_login_url 'google' %}">Log in</a>

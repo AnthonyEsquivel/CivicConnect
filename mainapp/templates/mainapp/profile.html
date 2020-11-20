@@ -32,6 +32,7 @@
     {% else %}
 
     <!-- user information -->
+<<<<<<< HEAD
     <form class="form-horizontal">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -51,6 +52,11 @@
             </div>
         </div>
     </form>
+=======
+    <h5> {{ user.get_full_name }} </h5>
+    <a>Email: {{user.email}}</a>
+     <br> <br>
+>>>>>>> origin/styling
     <h3>My Templates</h3>
     <a> -- Choose a template then click Publish to make the template publicly available --</a>
         <br>
@@ -74,6 +80,25 @@
 </div>
 {% endif %}
 <br>
+<<<<<<< HEAD
+=======
+
+<h3>Tagged Templates</h3>
+        <br>
+<div class="list-group">
+    {% for template in favoritedTemps %}
+        <a href="/{{template.id}}" class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">{{template.temp_name}}</h5>
+            <small>Created {{template.pub_date}}</small>
+            </div>
+            <p class="mb-1">{{template.temp_description}}</p>
+        </a>
+    {% endfor %}
+</div>
+
+<!-- display representatives based on your address -->
+>>>>>>> origin/styling
 
 <h3>My Representatives</h3>
 <!-- display representatives based on your address -->

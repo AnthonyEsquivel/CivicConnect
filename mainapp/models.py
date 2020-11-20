@@ -20,6 +20,7 @@ class Template(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     public = models.BooleanField(default=False)
     pub_date = models.DateTimeField(auto_now=True,blank=True, null=True)
+    is_approved = models.BooleanField(default=False)
 
     def publish(self):
         self.published_date = timezone.now()
