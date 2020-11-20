@@ -4,15 +4,20 @@
   <h3>{{template.temp_description}}</h3>
   <h3>Template Message: </h3>
   <p id="templatetext">{{template.temp_text}}</p>
+<!-- {% if user.is_admin%} //If owner is admin, display template and have button to publish/make public--> 
+
+
+
+
   {% if template.owner == user %}
     <!--input class="btn btn-primary" href="/profile" type="submit" name="publish" value="Publish" /-->
     {% if template.public %}
-    <p style="color:rgb(100, 209, 100)">You have published this template and it is available to the public.</p>
+    <p style="color:rgb(100, 209, 100)">You have submitted this template and it has been available to the public by our admin.</p>
     {% else %}
     <form method='POST' >
       {% csrf_token %}
       <!--{{form1.as_p}}-->
-      <button type="submit" name="publish" onclick="location.href = '/profile'" class="btn btn-primary">Publish</button>
+      <button type="submit" name="publish" onclick="location.href = '/profile'" class="btn btn-primary">Submit for Review</button>
     </form>
     {% endif %}
   {% endif %}
@@ -33,7 +38,7 @@
                 <textarea class="form-control" id="message" name="message" rows="15"></textarea>
           <!-- {{form.message}} -->
       </div>
-      
+
       <h1>Send To</h1>
       <div class="form-group text-left">
         <label>Custom Email:</label>

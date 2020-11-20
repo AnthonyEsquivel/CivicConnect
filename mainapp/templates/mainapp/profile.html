@@ -4,7 +4,28 @@
 
 <div class="jumbotron">
 <div class="content container">
-
+    <!-- {% if user.is_admin%} //If user is admin, show all submitted templates to be reviewed
+    <h3>Templates for Review</h3>
+    <a> -- Choose a template then click Publish to make the template publicly available --</a>
+        <br>
+    <!-- for all the templates, grab the name -->
+    <!-- <div class="list-group">
+        {% for template in userTemps %}
+            <a href="/{{template.id}}" class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{template.temp_name}}</h5>
+                <small>Created {{template.pub_date}}</small>
+                </div>
+                <p class="mb-1">{{template.temp_description}}</p>
+                {% if template.public %}
+                <p class="mb-1">Public</p>
+                {% else %}
+                <p class="mb-1">Private</p>
+                {% endif %}
+            </a>
+        {% endfor %}
+    </div> -->
+    <!-- {% else %}  -->
     <h1>Profile Page</h1>
     {% if not user.is_authenticated %}
         <h3>Please login to view your profile</h3>
