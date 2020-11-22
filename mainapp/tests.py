@@ -26,3 +26,6 @@ class TemplateModelTests(TestCase):
         self.assertTrue(error)
 
 
+
+
+

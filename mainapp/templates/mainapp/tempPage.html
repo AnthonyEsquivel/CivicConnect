@@ -8,16 +8,26 @@
   {% endfor %}
   <h3>Template Message: </h3>
   <p id="templatetext">{{template.temp_text}}</p>
+  {% if user.is_staff %}
+      {% if not template.public %}
+      <p style="color:rgb(100, 209, 100)">User has submitted template for approval.</p>
+      <form method='POST' >
+        {% csrf_token %}
+        <button type="submit" name="publish" onclick="location.href = '/profile'" class="btn btn-primary">Publish</button>
+      </form>
+      {% endif %}
+  {% else %}
   {% if template.owner == user %}
     <!--input class="btn btn-primary" href="/profile" type="submit" name="publish" value="Publish" /-->
     {% if template.public %}
     <p style="color:rgb(100, 209, 100)">You have published this template and it is available to the public.</p>
     {% else %}
-    <form method='POST' >
+    <p style="color:rgb(100, 209, 100)">Thank you for submitting this template for review! </p>
+    <p style="color:rgb(100, 209, 100)">Once a member of our staff approves your template, it will be available under "Browse Templates" for all users </p>
+    <!-- <form method='POST' >
       {% csrf_token %}
-      <!--{{form1.as_p}}-->
       <button type="submit" name="publish" onclick="location.href = '/profile'" class="btn btn-primary">Publish</button>
-    </form>
+    </form> -->
     {% endif %}
   {% endif %}
   <h1 class="display-5">Create Your Email</h1>
@@ -37,31 +47,32 @@
                 <textarea class="form-control" id="message" name="message" rows="15"></textarea>
           <!-- {{form.message}} -->
       </div>
-      
+
       <h1>Send To</h1>
-      <div class="form-group text-left">
-        <label>Custom Email:</label>
-        <br>
-        {{form.to_email}}
-      </div>
         <!-- Representatives List  ---------------------------------------------------------------------------------- -->
             {% if representatives %}
-            <form method='POST' >
-            {% csrf_token %}
             <p>Your Representatives:</p>
             <div class="vertical-radio-buttons">
                 {% for key, value in test_representatives.items %}
                     <!-- only print representative that has an associated email -->
                     {% if value.emails %}
-                        <input type="radio" name="radios" id="radio-multiline"/>
-                        <label for="radio-multiline">{{ value.name }}<br/>{{ value.office.name }}<br/>{{ value.emails }}</label><br><br>
+                        <input type="radio" name="radios" value="{{ value.emails | first }}" id="radio-multiline"/>
+                        <label for="radio-multiline">{{ value.name }}<br/>{{ value.office.name }}<br/>{{ value.emails | first }}</label><br><br>
                     {% endif %}
                 {% endfor %}
+                <!-- check using your own email as a radio button :) -->
+{#                <input type="radio" name="radios" value="jeevnafyi@gmail.com" id="radio-multiline"/>#}
+{#                <label for="radio-multiline"> Jeevna <br/> P <br/> jeevnafyi@gmail.com#}
             </div>
-            </form>
                 {% else %}
                 <h1> Please enter a valid address to see your representatives </h1>
            {% endif %}
+
+    <div class="form-group text-left">
+        <label>Or enter another email:</label>
+        <br>
+        {{form.to_email}}
+      </div>
 
       <!--Submit Template Button-->
       <button type="submit" name="send" class="btn btn-primary">Send to Representative</button>
@@ -72,5 +83,5 @@
     var tempsubj= document.getElementById("tempsubj").innerHTML;
     document.getElementById("subject").value=tempsubj;
 </script>
-
+{% endif %}
 {% endblock %}

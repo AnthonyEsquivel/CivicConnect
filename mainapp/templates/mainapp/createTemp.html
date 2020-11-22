@@ -28,12 +28,13 @@
         {{form.temp_text}}
     </div>
     <!--Submit for Review Checkbox-->
-    <!--
-    <div class="form-check">
+
+    <!-- <div class="form-check">
         <label class="form-check-label">
           <input type="checkbox" class="form-check-input" value="">Submit for Review</label>
-    </div>
-    -->
+
+    </div> -->
+  
     <button class="btn btn-primary dropdown-toggle mr-4" type="button" data-toggle="dropdown" aria-haspopup="true" 
     aria-expanded="false">Tags</button>
     <div class="dropdown-menu">
@@ -50,7 +51,10 @@
     <br>
 
     <!--Submit Template Button-->
-    <button type="submit" class="btn btn-primary">Add to My Templates</button>
+    <!-- <button type="submit" class="btn btn-primary">Add to My Templates</button> -->
+    <button type="submit" class="btn btn-primary">Submit for Review</button>&nbsp;*
+    <br><br>
+    <h6 style="color:red">* Your template will be submitted to our admin for review. In the meantime, you may access it from your profile page.</h6>
 </form>
 {% endif %}
 {% endblock %}
