@@ -141,13 +141,18 @@ def templatePage(request, id):
     else:
         #Add share functionality
         if request.method == 'POST' and 'send' in request.POST:
+            print(request.POST)
             form = ContactForm(request.POST)
+            if 'radios' in request.POST:
+                email = request.POST['radios']
+                print(email)
             if form.is_valid():
                 subject = request.POST.get('subject')
-                to_email = request.POST.get('to_email')
+                if request.POST.get('to_email'):
+                    email = request.POST.get('to_email')
                 message = request.POST.get('message')
                 try:
-                    send_mail(subject, message,'civicconnect112@gmail.com', [to_email])
+                    send_mail(subject, message,'civicconnect112@gmail.com', [email])
                 except BadHeaderError:
                     return HttpResponse('Invalid header found.')
                 return redirect('/success')
