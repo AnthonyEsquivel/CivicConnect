@@ -4,7 +4,27 @@
 
 <div class="jumbotron">
 <div class="content container">
-
+    {% if user.is_staff %}
+    <h3>Templates for Review</h3>
+    <a> -- Choose a template to review, then click Publish to make the template publicly available for all users --</a>
+        <br>
+    <div class="list-group">
+        {% for template in userTemps %}
+            <a href="/{{template.id}}" class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{template.temp_name}}</h5>
+                <small>Created {{template.pub_date}}</small>
+                </div>
+                <p class="mb-1">{{template.temp_description}}</p>
+                <!-- {% if template.public %}
+                <p class="mb-1">Public</p>
+                {% else %}
+                <p class="mb-1">Private</p>
+                {% endif %} -->
+            </a>
+        {% endfor %}
+    </div>
+    {% else %}
     <h1>Profile Page</h1>
     {% if not user.is_authenticated %}
         <h3>Please login to view your profile</h3>
@@ -54,6 +74,22 @@
 {% endif %}
 <br>
 
+<h3>Tagged Templates</h3>
+        <br>
+<div class="list-group">
+    {% for template in favoritedTemps %}
+        <a href="/{{template.id}}" class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">{{template.temp_name}}</h5>
+            <small>Created {{template.pub_date}}</small>
+            </div>
+            <p class="mb-1">{{template.temp_description}}</p>
+        </a>
+    {% endfor %}
+</div>
+
+<!-- display representatives based on your address -->
+
 <h3>My Representatives</h3>
 <!-- display representatives based on your address -->
     <form action="{% url 'mainapp:profile' %}" method="POST" class="address-form">
@@ -94,7 +130,7 @@
         {% else %}
             <h1> Please enter a full and valid address to see your representatives </h1>
        {% endif %}
-
+{% endif %}
 {% endblock %}
 
 </div>

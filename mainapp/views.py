@@ -7,6 +7,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from .models import Template
 from .forms import TemplateForm
 from django.contrib.auth import logout
+from django.contrib import messages
 from .forms import ContactForm
 from django.core.mail import send_mail, BadHeaderError
 
@@ -28,9 +29,14 @@ def news(request):
 
 def profile(request):
     userTemps = []
-    for t in Template.objects.all():
-        if t.owner == request.user:
-            userTemps.append(t)
+    if request.user.is_staff==True:
+        for t in Template.objects.all():
+            if t.public == False:
+                userTemps.append(t)
+    else:
+        for t in Template.objects.all():
+            if t.owner == request.user:
+                userTemps.append(t)
 
     # grab representatives based on address and API key --------------------------------------------------------------
 
@@ -110,17 +116,17 @@ def makeTemplate(request):
         postName = request.POST.get("temp_name")
         postDesc = request.POST.get("temp_description")
         postTemp = request.POST.get("temp_text")
-        newTemplate = Template(temp_name=postName, temp_description=postDesc, temp_text=postTemp, owner=request.user)
+        newTemplate = Template(temp_name=postName, temp_description=postDesc, temp_text=postTemp, owner=request.user, is_submittedForReview=True)
         newTemplate.save()
         return redirect('/profile')
     return render(request, 'mainapp/createTemp.html', context={'form': TemplateForm})
 
-
 def browseTemplates(request):
+    queryset = Template.objects.all().order_by('-pub_date').filter(public=True)
     publicTemps = []
-    for t in Template.objects.all().order_by('-pub_date'):
-        if t.public:
-            publicTemps.append(t)
+    for q in queryset:
+        if q.public:
+            publicTemps.append(q)
     return render(request, "mainapp/browse.html", context={'templates': publicTemps})
 
 
@@ -128,6 +134,8 @@ def templatePage(request, id):
     template = get_object_or_404(Template, id=id)
     if request.method == 'POST' and 'publish' in request.POST:
         template.public = True
+        template.is_approved = True
+        template.is_submittedForReview = False
         template.save(update_fields=["public"])
         return redirect('/profile')
     else:
@@ -137,7 +145,7 @@ def templatePage(request, id):
             if form.is_valid():
                 subject = request.POST.get('subject')
                 to_email = request.POST.get('to_email')
-                message = request.POST.get('message')   
+                message = request.POST.get('message')
                 try:
                     send_mail(subject, message,'civicconnect112@gmail.com', [to_email])
                 except BadHeaderError:
@@ -202,4 +210,3 @@ def sendEmail(request):
 
 def successView(request):
     return render(request, "mainapp/success.html")
-

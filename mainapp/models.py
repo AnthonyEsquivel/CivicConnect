@@ -20,6 +20,8 @@ class Template(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     public = models.BooleanField(default=False)
     pub_date = models.DateTimeField(auto_now=True,blank=True, null=True)
+    is_approved = models.BooleanField(default=False)
+    is_submittedForReview = models.BooleanField(default=False)
 
     def publish(self):
         self.published_date = timezone.now()
@@ -27,7 +29,6 @@ class Template(models.Model):
 
     def __str__(self):
         return self.temp_text
-
 
 # extend a class so the user can have other fields added and stored
 class MyUser(models.Model):
@@ -39,6 +40,3 @@ class MyUser(models.Model):
 
     def __str__(self):
         return self.user.get_username()
-
-
-
