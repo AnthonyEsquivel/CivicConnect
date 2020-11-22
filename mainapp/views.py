@@ -18,16 +18,29 @@ from django.core.mail import send_mail, BadHeaderError
 key = "AIzaSyAqg74M90_V9eS2j06NNzGK-PqRNZ9sbLg"
 
 #Creating Tags
-tags = ['Climate Change', 'Racial Justice', 'Healthcare']
-while len(Tags.objects.all()) < len(tags):
-    i = len(Tags.objects.all()) 
-    t = Tags(name=tags[i],id=i)
+tags = ['Climate Change', 'Racial Justice', 'Health Care','Student Debt','Foreign Policy','Policing','Gun Policy']
+'''
+for i in range(len(Tags.objects.all()),len(tags)-1):
+    t = Tags(name=tags[i+1],id=i+1)
     t.save()
+    print(i)
 '''
-if len(Tags.objects.all()) == 0:
-        t1 = Tags(name='Climate Change',id=1)
-        t1.save()
-'''
+if len(Tags.objects.all()) != len(tags):
+    t1 = Tags(name='Climate Change',id=1)
+    t1.save()
+    t2 = Tags(name='Racial Justice',id=2)
+    t2.save()
+    t3 = Tags(name='Health Care',id=3)
+    t3.save()
+    t4 = Tags(name='Student Debt',id=4)
+    t4.save()
+    t5 = Tags(name='Foreign Policy',id=5)
+    t5.save()
+    t6 = Tags(name='Policing',id=6)
+    t6.save()
+    t7 = Tags(name='Gun Policy',id=7)
+    t7.save()
+
 
 def index(request):
     return render(request, "mainapp/index.html")
