@@ -33,6 +33,7 @@ class Template(models.Model):
 class MyUser(models.Model):
     address = models.CharField(max_length=1000)
     member_since = models.DateTimeField()
+    issues = models.ManyToManyField(Tags)
     # get django defined user model, creates a one to one w this user
     # if you delete the django user, delete my user too
     user = models.OneToOneField(User, default=0, on_delete=models.CASCADE)

@@ -1,10 +1,9 @@
 from django.utils import timezone
-from .models import Template, MyUser
+from .models import Template, MyUser, Tags
 import requests
 import json
 from django.shortcuts import  get_object_or_404, render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import Template
 from .forms import TemplateForm
 from django.contrib.auth import logout
 from .forms import ContactForm
@@ -31,7 +30,6 @@ def profile(request):
     for t in Template.objects.all():
         if t.owner == request.user:
             userTemps.append(t)
-
     # grab representatives based on address and API key --------------------------------------------------------------
 
     if request.method == 'POST' and 'representatives' in request.POST:
@@ -86,6 +84,16 @@ def profile(request):
         'test_representatives': test_representatives})
 
 def edit_profile(request):
+    issues = ['Climate Change', 'Racial Justice', 'Healthcare']
+    
+    if len(Tags.objects.all()) == 0:
+        t1 = Tags(name='Climate Change')
+        t1.save()
+        t2 = Tags(name='Racial Justice')
+        t2.save()
+        t3 = Tags(name='Healthcare')
+        t3.save()
+
     if request.method == 'POST':
         request.user.first_name = request.POST['fname']
         request.user.last_name = request.POST['lname']
@@ -93,6 +101,11 @@ def edit_profile(request):
             request.user.myuser = MyUser(address=request.POST['address'], member_since=timezone.now())
         else:
             request.user.myuser.address = request.POST['address']
+        #Tag feature adds issues to users tags
+        for tag in issues:
+            if tag in request.POST:
+                request.user.myuser.issues.add(t1)
+
         request.user.myuser.save()
         request.user.save()
         return redirect('/profile')
@@ -100,7 +113,7 @@ def edit_profile(request):
         address = request.user.myuser.address
     except:
         address = '1826 University Ave, Charlottesville, VA 22904'
-    return render(request, "mainapp/editProfile.html", context= {'user':request.user,"address": address})
+    return render(request, "mainapp/editProfile.html", context= {'user':request.user,"address": address, 'issues':issues})
 
 def makeTemplate(request):
     if request.method == 'POST':
