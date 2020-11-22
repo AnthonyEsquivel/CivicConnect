@@ -17,6 +17,6 @@ class TemplateForm(ModelForm):
         # self.fields['temp_name'].widget.attrs.update({'class': "form-control"})
 
 class ContactForm(forms.Form):
-    to_email = forms.EmailField(required=True)
+    to_email = forms.EmailField(required=False)
     subject = forms.CharField(required=True)
     message = forms.CharField(widget=forms.Textarea, required=True)
