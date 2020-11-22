@@ -34,6 +34,21 @@
           <input type="checkbox" class="form-check-input" value="">Submit for Review</label>
     </div>
     -->
+    <button class="btn btn-primary dropdown-toggle mr-4" type="button" data-toggle="dropdown" aria-haspopup="true" 
+    aria-expanded="false">Tags</button>
+    <div class="dropdown-menu">
+        {% for t in tags %}
+        <a class="dropdown-item">
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="{{t}}" name="{{t}}">
+            <label class="custom-control-label" for="{{t}}">{{t}}</label>
+        </div>
+        </a>    
+        {% endfor %}   
+    </div>
+    <br>
+    <br>
+
     <!--Submit Template Button-->
     <button type="submit" class="btn btn-primary">Add to My Templates</button>
 </form>

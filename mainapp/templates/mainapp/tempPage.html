@@ -2,6 +2,10 @@
 {% block content %}
   <h1 id="tempsubj">{{template.temp_name}}</h1>
   <h3>{{template.temp_description}}</h3>
+  <a>Tags: | </a>
+  {% for t in tags %}
+      <a>{{t}} | </a>
+  {% endfor %}
   <h3>Template Message: </h3>
   <p id="templatetext">{{template.temp_text}}</p>
   {% if template.owner == user %}

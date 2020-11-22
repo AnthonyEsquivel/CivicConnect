@@ -44,8 +44,10 @@ def profile(request):
         request.user.myuser.save()
     try:
         issues = request.user.myuser.issues.all()
+        if len(issues) == 0:
+            issues = ["Go to edit profile to add issues that are important to you"]
     except:
-        issues = False
+        issues = ['No Issues']
     # reference to user data on profile page (incase of empty form)
     try:
         address = request.user.myuser.address
@@ -111,7 +113,10 @@ def edit_profile(request):
             i += 1
             if tag in request.POST:
                 t = get_object_or_404(Tags, id=i)
-                request.user.myuser.issues.add(t)
+                if t in request.user.myuser.issues.all():
+                    request.user.myuser.issues.remove(t)
+                else:
+                    request.user.myuser.issues.add(t)
 
         request.user.myuser.save()
         request.user.save()
@@ -123,6 +128,7 @@ def edit_profile(request):
     return render(request, "mainapp/editProfile.html", context= {'user':request.user,"address": address, 'issues':issues})
 
 def makeTemplate(request):
+    tags = ['Climate Change', 'Racial Justice', 'Healthcare']
     if request.method == 'POST':
         form = TemplateForm(request.POST)
         if form.is_valid():
@@ -132,8 +138,15 @@ def makeTemplate(request):
         postTemp = request.POST.get("temp_text")
         newTemplate = Template(temp_name=postName, temp_description=postDesc, temp_text=postTemp, owner=request.user)
         newTemplate.save()
+        i = 0
+        for tag in tags:
+            i += 1
+            if tag in request.POST:
+                t = get_object_or_404(Tags, id=i)
+                newTemplate.tags.add(t)
+        newTemplate.save()
         return redirect('/profile')
-    return render(request, 'mainapp/createTemp.html', context={'form': TemplateForm})
+    return render(request, 'mainapp/createTemp.html', context={'form': TemplateForm, 'tags':tags})
 
 
 def browseTemplates(request):
@@ -146,6 +159,9 @@ def browseTemplates(request):
 
 def templatePage(request, id):
     template = get_object_or_404(Template, id=id)
+    tags = template.tags.all()
+    if len(tags) == 0:
+        tags =["None"]
     if request.method == 'POST' and 'publish' in request.POST:
         template.public = True
         template.save(update_fields=["public"])
@@ -196,7 +212,8 @@ def templatePage(request, id):
                                                               'template': template,
                                                               'form': ContactForm, "address": address,
                                                               "representatives": representatives,
-                                                              'test_representatives': test_representatives})
+                                                              'test_representatives': test_representatives,
+                                                              'tags':tags})
 
 def logout_view(request):
     # commented out bc it was an error

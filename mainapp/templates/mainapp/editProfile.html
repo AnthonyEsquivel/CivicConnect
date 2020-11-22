@@ -18,8 +18,9 @@
         <span class="helper-text red-text" data-error="Please enter a valid address" data-success="Great!"><br></span>
     </div>
     
-    <button class="btn btn-primary dropdown-toggle mr-4" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Basic dropdown</button>
-    <div class="dropdown-menu">
+    <label>Choose new issues to add to your profile or choose issues already on your profile to remove from your profile.</label>
+    <button class="btn btn-primary dropdown-toggle mr-4" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Issues</button>
+    <div class="dropdown-menu-right">
         {% for i in issues %}
         <a class="dropdown-item">
         <div class="custom-control custom-checkbox">

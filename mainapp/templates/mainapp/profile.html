@@ -21,9 +21,9 @@
                     <a>Name: {{ user.get_full_name }} </a><br>
                     <a>Email: {{user.email}}</a><br>
                     <a>Address: {{address}}</a><br>
-                    <a>My Issues:</a>
+                    <a>My Issues: | </a>
                     {% for i in issues %}
-                        <a>{{i}}, </a>
+                        <a>{{i}} | </a>
                     {% endfor %}
                 </div>
             </div>
