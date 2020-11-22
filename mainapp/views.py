@@ -17,6 +17,18 @@ from django.core.mail import send_mail, BadHeaderError
 # google api key
 key = "AIzaSyAqg74M90_V9eS2j06NNzGK-PqRNZ9sbLg"
 
+#Creating Tags
+tags = ['Climate Change', 'Racial Justice', 'Healthcare']
+while len(Tags.objects.all()) < len(tags):
+    i = len(Tags.objects.all()) 
+    t = Tags(name=tags[i],id=i)
+    t.save()
+'''
+if len(Tags.objects.all()) == 0:
+        t1 = Tags(name='Climate Change',id=1)
+        t1.save()
+'''
+
 def index(request):
     return render(request, "mainapp/index.html")
 
@@ -90,16 +102,7 @@ def profile(request):
         'test_representatives': test_representatives})
 
 def edit_profile(request):
-    issues = ['Climate Change', 'Racial Justice', 'Healthcare']
-    
-    if len(Tags.objects.all()) == 0:
-        t1 = Tags(name='Climate Change',id=1)
-        t1.save()
-        t2 = Tags(name='Racial Justice',id=2)
-        t2.save()
-        t3 = Tags(name='Healthcare',id=3)
-        t3.save()
-
+    issues = tags
     if request.method == 'POST':
         request.user.first_name = request.POST['fname']
         request.user.last_name = request.POST['lname']
@@ -128,7 +131,6 @@ def edit_profile(request):
     return render(request, "mainapp/editProfile.html", context= {'user':request.user,"address": address, 'issues':issues})
 
 def makeTemplate(request):
-    tags = ['Climate Change', 'Racial Justice', 'Healthcare']
     if request.method == 'POST':
         form = TemplateForm(request.POST)
         if form.is_valid():
