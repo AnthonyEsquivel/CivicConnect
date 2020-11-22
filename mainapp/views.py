@@ -87,11 +87,11 @@ def edit_profile(request):
     issues = ['Climate Change', 'Racial Justice', 'Healthcare']
     
     if len(Tags.objects.all()) == 0:
-        t1 = Tags(name='Climate Change')
+        t1 = Tags(name='Climate Change',id='1')
         t1.save()
-        t2 = Tags(name='Racial Justice')
+        t2 = Tags(name='Racial Justice',id=2)
         t2.save()
-        t3 = Tags(name='Healthcare')
+        t3 = Tags(name='Healthcare',id=3)
         t3.save()
 
     if request.method == 'POST':
@@ -104,7 +104,8 @@ def edit_profile(request):
         #Tag feature adds issues to users tags
         for tag in issues:
             if tag in request.POST:
-                request.user.myuser.issues.add(t1)
+                t = Tags.objects.get(id=1)
+                request.user.myuser.issues.add(t)
 
         request.user.myuser.save()
         request.user.save()
