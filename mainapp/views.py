@@ -42,7 +42,10 @@ def profile(request):
             request.user.myuser.address = request.POST['address']
         # request.user.myuser.address = request.POST['address']
         request.user.myuser.save()
-
+    try:
+        issues = request.user.myuser.issues.all()
+    except:
+        issues = False
     # reference to user data on profile page (incase of empty form)
     try:
         address = request.user.myuser.address
@@ -80,6 +83,7 @@ def profile(request):
         'user': request.user,
         'userTemps': userTemps,
         "address": address,
+        "issues":issues,
         "representatives": representatives,
         'test_representatives': test_representatives})
 
@@ -87,7 +91,7 @@ def edit_profile(request):
     issues = ['Climate Change', 'Racial Justice', 'Healthcare']
     
     if len(Tags.objects.all()) == 0:
-        t1 = Tags(name='Climate Change',id='1')
+        t1 = Tags(name='Climate Change',id=1)
         t1.save()
         t2 = Tags(name='Racial Justice',id=2)
         t2.save()
@@ -102,9 +106,11 @@ def edit_profile(request):
         else:
             request.user.myuser.address = request.POST['address']
         #Tag feature adds issues to users tags
+        i = 0
         for tag in issues:
+            i += 1
             if tag in request.POST:
-                t = Tags.objects.get(id=1)
+                t = get_object_or_404(Tags, id=i)
                 request.user.myuser.issues.add(t)
 
         request.user.myuser.save()
