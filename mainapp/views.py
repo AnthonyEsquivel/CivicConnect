@@ -1,10 +1,9 @@
 from django.utils import timezone
-from .models import Template, MyUser
+from .models import Template, MyUser, Tags
 import requests
 import json
 from django.shortcuts import  get_object_or_404, render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import Template
 from .forms import TemplateForm
 from django.contrib.auth import logout
 from django.contrib import messages
@@ -18,6 +17,33 @@ from django.core.mail import send_mail, BadHeaderError
 
 # google api key
 key = "AIzaSyAqg74M90_V9eS2j06NNzGK-PqRNZ9sbLg"
+
+#Creating Tags
+tags = ['Climate Change', 'Racial Justice', 'Health Care','Student Debt','Foreign Policy','Policing','Gun Policy','Animal Rights']
+'''
+for i in range(len(Tags.objects.all()),len(tags)-1):
+    t = Tags(name=tags[i+1],id=i+1)
+    t.save()
+    print(i)
+'''
+if len(Tags.objects.all()) != len(tags):
+    t1 = Tags(name='Climate Change',id=1)
+    t1.save()
+    t2 = Tags(name='Racial Justice',id=2)
+    t2.save()
+    t3 = Tags(name='Health Care',id=3)
+    t3.save()
+    t4 = Tags(name='Student Debt',id=4)
+    t4.save()
+    t5 = Tags(name='Foreign Policy',id=5)
+    t5.save()
+    t6 = Tags(name='Policing',id=6)
+    t6.save()
+    t7 = Tags(name='Gun Policy',id=7)
+    t7.save()
+    t8 = Tags(name='Animal Rights',id=8)
+    t8.save()
+
 
 def index(request):
     return render(request, "mainapp/index.html")
@@ -50,7 +76,12 @@ def profile(request):
             request.user.myuser.address = request.POST['address']
         # request.user.myuser.address = request.POST['address']
         request.user.myuser.save()
-
+    try:
+        issues = request.user.myuser.issues.all()
+        if len(issues) == 0:
+            issues = ["Go to edit profile to add issues that are important to you"]
+    except:
+        issues = ['No Issues']
     # reference to user data on profile page (incase of empty form)
     try:
         address = request.user.myuser.address
@@ -88,10 +119,12 @@ def profile(request):
         'user': request.user,
         'userTemps': userTemps,
         "address": address,
+        "issues":issues,
         "representatives": representatives,
         'test_representatives': test_representatives})
 
 def edit_profile(request):
+    issues = tags
     if request.method == 'POST':
         request.user.first_name = request.POST['fname']
         request.user.last_name = request.POST['lname']
@@ -99,6 +132,17 @@ def edit_profile(request):
             request.user.myuser = MyUser(address=request.POST['address'], member_since=timezone.now())
         else:
             request.user.myuser.address = request.POST['address']
+        #Tag feature adds issues to users tags
+        i = 0
+        for tag in issues:
+            i += 1
+            if tag in request.POST:
+                t = get_object_or_404(Tags, id=i)
+                if t in request.user.myuser.issues.all():
+                    request.user.myuser.issues.remove(t)
+                else:
+                    request.user.myuser.issues.add(t)
+
         request.user.myuser.save()
         request.user.save()
         return redirect('/profile')
@@ -106,7 +150,7 @@ def edit_profile(request):
         address = request.user.myuser.address
     except:
         address = '1826 University Ave, Charlottesville, VA 22904'
-    return render(request, "mainapp/editProfile.html", context= {'user':request.user,"address": address})
+    return render(request, "mainapp/editProfile.html", context= {'user':request.user,"address": address, 'issues':issues})
 
 def makeTemplate(request):
     if request.method == 'POST':
@@ -118,8 +162,15 @@ def makeTemplate(request):
         postTemp = request.POST.get("temp_text")
         newTemplate = Template(temp_name=postName, temp_description=postDesc, temp_text=postTemp, owner=request.user, is_submittedForReview=True)
         newTemplate.save()
+        i = 0
+        for tag in tags:
+            i += 1
+            if tag in request.POST:
+                t = get_object_or_404(Tags, id=i)
+                newTemplate.tags.add(t)
+        newTemplate.save()
         return redirect('/profile')
-    return render(request, 'mainapp/createTemp.html', context={'form': TemplateForm})
+    return render(request, 'mainapp/createTemp.html', context={'form': TemplateForm, 'tags':tags})
 
 def browseTemplates(request):
     queryset = Template.objects.all().order_by('-pub_date').filter(public=True)
@@ -132,6 +183,9 @@ def browseTemplates(request):
 
 def templatePage(request, id):
     template = get_object_or_404(Template, id=id)
+    tags = template.tags.all()
+    if len(tags) == 0:
+        tags =["None"]
     if request.method == 'POST' and 'publish' in request.POST:
         template.public = True
         template.is_approved = True
@@ -189,7 +243,8 @@ def templatePage(request, id):
                                                               'template': template,
                                                               'form': ContactForm, "address": address,
                                                               "representatives": representatives,
-                                                              'test_representatives': test_representatives})
+                                                              'test_representatives': test_representatives,
+                                                              'tags':tags})
 
 def logout_view(request):
     # commented out bc it was an error

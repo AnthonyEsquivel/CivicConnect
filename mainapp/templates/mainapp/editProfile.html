@@ -4,20 +4,34 @@
 <!-- user information -->  
 <form method="POST" action="{% url 'mainapp:editProfile'%}" class="edit-form">
     {% csrf_token %}
-                <label>First Name</label>
-                <div class="input-field">
-                    <input id="fname-input" type="text" name="fname" value="{{user.first_name}}"><br>
-                </div>
-                <label>Last Name</label>
-                <div class="input-field">
-                    <input id="lname-input" type="text" name="lname" value="{{user.last_name}}"><br>
-                </div>
-                <label>Address (Address, City State, Zip Code)</label>
-                <div class="input-field">
-                    <input id="address-input" type="text" name="address" size=100 value="{{address}}"><br>
-                    <span class="helper-text red-text" data-error="Please enter a valid address" data-success="Great!"><br></span>
-                </div>
-                
+    <label>First Name</label>
+    <div class="input-field">
+        <input id="fname-input" type="text" name="fname" value="{{user.first_name}}"><br>
+    </div>
+    <label>Last Name</label>
+    <div class="input-field">
+        <input id="lname-input" type="text" name="lname" value="{{user.last_name}}"><br>
+    </div>
+    <label>Address (Address, Zip Code)</label>
+    <div class="input-field">
+        <input id="address-input" type="text" name="address" size=100 value="{{address}}"><br>
+        <span class="helper-text red-text" data-error="Please enter a valid address" data-success="Great!"><br></span>
+    </div>
+    
+    <label>Choose new issues to add to your profile or choose issues already on your profile to remove from your profile.</label>
+    <button class="btn btn-primary dropdown-toggle mr-4" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Issues</button>
+    <div class="dropdown-menu-right">
+        {% for i in issues %}
+        <a class="dropdown-item">
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="{{i}}" name="{{i}}">
+            <label class="custom-control-label" for="{{i}}">{{i}}</label>
+        </div>
+        </a>    
+        {% endfor %}   
+    </div>
+    <br>
+    <br>
     <div class="btn-field">
         <input id="rep-btn" class="btn btn-primary btn-lg" type="submit" name="save" value="Save">
     </div>
