@@ -1,31 +1,31 @@
 p {
   font: normal normal 18px/40px Poppins;
-  font-variant: small-caps;
+  /*font-variant: small-caps;*/
 }
 
 a {
   font: normal normal 18px/40px Poppins;
-  font-variant: small-caps;
+  /*font-variant: small-caps;*/
 }
 
 h1 {
   font: normal normal 400 40px/60px Poppins;
-  font-variant: small-caps;
+  /*font-variant: small-caps;*/
 }
 
 h2 {
   font: normal normal 600 30px/42px Poppins;
-  font-variant: small-caps;
+  /*font-variant: small-caps;*/
 }
 
 nav {
   font: normal normal 15px/30px Poppins;
-  font-variant: small-caps;
+  /*font-variant: small-caps;*/
 }
 
 .button {
   font: normal normal 18px/40px Poppins;
-  font-variant: small-caps;
+  /*font-variant: small-caps;*/
 }
 
 .button2 {
