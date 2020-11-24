@@ -4,7 +4,7 @@
 
 <div class="jumbotron">
 <div class="content container">
-    <h1>My Profile</h1>
+    <h1 style="text-align:center">My Profile</h1>
     <br>
     {% if user.is_staff %}
     <h3>Admin: Templates for Review</h3>
@@ -59,8 +59,8 @@
                 <div class="form-group">
                         <input type = button class="btn btn-primary" onclick = "location.href='/editProfile'" value='Edit Profile'>
                 </div>
-                <br>
             </div>
+        <br>
         </div>
     </form>
     <h3>My Templates</h3>
