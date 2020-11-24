@@ -2,7 +2,7 @@
 
 Project site: https://civic-connect-112.herokuapp.com/
 
-This is a web application which allows users to create, find, and send email templates to government representatives concerning any topic the like. 
+This is a web application which allows users to create, find, and send email templates to government representatives concerning any topic they like. 
 
 Login:
 - You can log in using the 'Log In' button at the top of the page which will allow you to use you google account to sign in to the website.
