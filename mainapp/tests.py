@@ -2,7 +2,7 @@ from django.test import TestCase
 
 # Create your tests here.
 
-from .models import Template, MyUser, User
+from .models import Template, MyUser, User, Tags
 from django.db.utils import IntegrityError
 
 
@@ -30,7 +30,7 @@ class TemplateModelTests(TestCase):
         a.save()
         self.assertEquals(a.tags.all(),None)
 
-class User(TestCase):
+class MyUser(TestCase):
     #Does MyUser address setup save to user
     def setUpMyUser(self):
          a=User(first_name="Shreyas")
@@ -53,9 +53,49 @@ class User(TestCase):
         else:
             self.assertFalse
 
+    # does it throw an error when i put an invalid address
+    def testInvalidAddress(self):
+        a = User(first_name="Wendy")
+        a.myuser = MyUser(address="!", member_since=timezone.now())
+        try:
+            a.save()
+            error = False
+        except IntegrityError:
+            error = True
+        self.assertTrue(error)
+        
+    # does my user create without a name
+    def testMyUserNoName(self):
+        a=User(first_name="Shreyas")
+        a.myuser = MyUser()
+        try:
+            a.save()
+            error = False
+        except IntegrityError:
+            error = True
+        self.assertTrue(error)
+
+
 class Tags(TestCase):
-    # Does the tag creation work correctly
+    # does my tag save to the database
+    def setupTag(self):
+        a = Tags(name='TESTTAG')
+        a.save()
+        self.assertEquals(a, Tags.objects.get(name='TESTTAG'))
+    
+    # Does the tag name work correctly
     def testTagCreation(self):
         tag = Tags(name='Test tag',id=100)
         tag.save()
         self.assertEquals(tag.name,'Test tag')
+
+    # does my tag create without a name
+    def testTagNoName(self):
+        a = Tags()
+        try:
+            a.save()
+            error = False
+        except IntegrityError:
+            error = True
+        self.assertTrue(error)
+    
