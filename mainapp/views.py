@@ -54,7 +54,7 @@ def news(request):
 
 
 def profile(request):
-    print("hello", request.user.myuser)
+    #print("hello", request.user.myuser)
     userTemps = []
     if request.user.is_staff==True:
         for t in Template.objects.all():

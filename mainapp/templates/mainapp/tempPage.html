@@ -1,5 +1,6 @@
 {% extends 'mainapp/base.html' %}
 {% block content %}
+  {% if template.public or user.is_staff or template.owner == user%}
   <h1 id="tempsubj">{{template.temp_name}}</h1>
   <h3>{{template.temp_description}}</h3>
   <a>Tags: | </a>
@@ -8,6 +9,7 @@
   {% endfor %}
   <h3>Template Message: </h3>
   <p id="templatetext">{{template.temp_text}}</p>
+  {% endif %}
   {% if user.is_staff %}
       {% if not template.public %}
       <p style="color:rgb(100, 209, 100)">User has submitted template for approval.</p>
@@ -30,6 +32,7 @@
     </form> -->
     {% endif %}
   {% endif %}
+  {% if template.public %}
   <h1 class="display-5">Create Your Email</h1>
     <form method='POST' >
       {% csrf_token %}
@@ -83,5 +86,9 @@
     var tempsubj= document.getElementById("tempsubj").innerHTML;
     document.getElementById("subject").value=tempsubj;
 </script>
+  {% else %}
+  <p>This template is not public</p>
+  {% endif %}
 {% endif %}
+
 {% endblock %}
