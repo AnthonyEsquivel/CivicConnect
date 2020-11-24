@@ -20,7 +20,12 @@ h2 {
 
 nav {
   font: normal normal 15px/30px Poppins;
+  width: 100%;
   /*font-variant: small-caps;*/
+}
+
+.nav-right {
+  float: right;
 }
 
 .button {
@@ -32,12 +37,22 @@ nav {
   background: #EBF9EA 0% no-repeat padding-box;
   border-radius: 28px;
   border: none;
+  height: 36px;
+  line-height: 18px;
   color: #33C534;
-  padding: 3px 15px;
+  padding: 3px 20px;
   text-align: center;
+  vertical-align: center;
   display: inline-block;
   font-size: 12px;
   margin: 6px;
+}
+
+.jumbotron {
+  background: #ffffff;
+  width: 1100px;
+  position: center;
+  margin: auto;
 }
 
 html {

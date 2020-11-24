@@ -3,13 +3,16 @@
   {% if template.public or user.is_staff or template.owner == user%}
   <h1 id="tempsubj">{{template.temp_name}}</h1>
   <h3>{{template.temp_description}}</h3>
-  <a>Tags: | </a>
+  <a>Tags: </a>
   {% for t in tags %}
-      <a>{{t}} | </a>
+      <span>
+        <button class="button button2">{{t}}</button>
+      </span>
   {% endfor %}
   <h3>Template Message: </h3>
   <p id="templatetext">{{template.temp_text}}</p>
   {% endif %}
+
   {% if user.is_staff %}
       {% if not template.public %}
       <p style="color:rgb(100, 209, 100)">User has submitted template for approval.</p>
@@ -33,7 +36,7 @@
     {% endif %}
   {% endif %}
   {% if template.public %}
-  <h1 class="display-5">Create Your Email</h1>
+  <h1 class="display-5">Personalize Your Email:</h1>
     <form method='POST' >
       {% csrf_token %}
       <!--Template Description Box-->
@@ -76,7 +79,7 @@
         <br>
         {{form.to_email}}
       </div>
-
+        <br>
       <!--Submit Template Button-->
       <button type="submit" name="send" class="btn btn-primary">Send to Representative</button>
     </form>
