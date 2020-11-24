@@ -30,7 +30,7 @@ class TemplateModelTests(TestCase):
         a.save()
         self.assertEquals(a.tags.all(),None)
 
-class MyUser(TestCase):
+class MyUserTests(TestCase):
     #Does MyUser address setup save to user
     def setUpMyUser(self):
          a=User(first_name="Shreyas")
@@ -76,7 +76,7 @@ class MyUser(TestCase):
         self.assertTrue(error)
 
 
-class Tags(TestCase):
+class TagsTest(TestCase):
     # does my tag save to the database
     def setupTag(self):
         a = Tags(name='TESTTAG')
