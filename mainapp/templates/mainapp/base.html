@@ -50,9 +50,9 @@
                     <a class="btn btn-primary btn-block " href="{% url 'logout' %}">Log out</a>
                 </form>
             {% else %}
-			<form class="form-inline my-2 my-lg-0">
-				<a class="btn btn-primary btn-block" href="{% provider_login_url 'google' %}">Log in</a>
-			</form>
+                <form class="form-inline my-2 my-lg-0 ml-auto">
+                    <a class="btn btn-primary btn-block" href="{% provider_login_url 'google' %}">Log in</a>
+                </form>
 			{% endif %}
 	        </ul>
         </div>
