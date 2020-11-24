@@ -1,7 +1,7 @@
 from django.test import TestCase
 
 # Create your tests here.
-
+from django.utils import timezone
 from .models import Template, MyUser, User, Tags
 from django.db.utils import IntegrityError
 
