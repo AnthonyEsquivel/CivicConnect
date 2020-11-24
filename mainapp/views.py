@@ -1,7 +1,7 @@
 # /***************************************************************************************
 # *  REFERENCES
 # *  Title: The admin approval backend
-# *  Author: James Bennett, Andrerw Cutler, and others.
+# *  Author: James Bennett, Andrew Cutler, and others.
 # *  Date: 2007-2017
 # *  Code version: N/A
 # *  URL: https://django-registration-redux.readthedocs.io/en/latest/admin-approval-backend.html
