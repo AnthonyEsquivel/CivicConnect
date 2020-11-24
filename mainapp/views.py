@@ -1,3 +1,27 @@
+# /***************************************************************************************
+# *  REFERENCES
+# *  Title: The admin approval backend
+# *  Author: James Bennett, Andrerw Cutler, and others.
+# *  Date: 2007-2017
+# *  Code version: N/A
+# *  URL: https://django-registration-redux.readthedocs.io/en/latest/admin-approval-backend.html
+# *  Software License: N/A (None specified)
+# * 
+# * Title: What You Need to Know to Manage Users in Django Admin
+# * Author: Haki Benita
+# * Date: Not specified
+# * Code version: N/A
+# * URL: https://realpython.com/manage-users-in-django-admin/
+# * Software License: N/A (None specified)
+# *
+# * Title: Google Civic Information API 
+# * Author: N/A
+# * Date: Not specified
+# * Code version: N/A
+# * URL: https://developers.google.com/civic-information
+# * Software License: Apache 2.0
+# ***************************************************************************************/
+
 from django.utils import timezone
 from .models import Template, MyUser, Tags
 import requests
