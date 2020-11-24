@@ -4,6 +4,7 @@
 
 <div class="jumbotron">
 <div class="content container">
+    <h1>My Profile</h1>
     {% if user.is_staff %}
     <h3>Templates for Review</h3>
     <a> -- Choose a template to review, then click Publish to make the template publicly available for all users --</a>
@@ -27,7 +28,7 @@
     {% endif %}
 
     <!-- the part to be shown always ------------------------------------------------------------------------------ -->
-    <h1>Profile Page</h1>
+
     {% if not user.is_authenticated %}
         <h3>Please login to view your profile</h3>
     {% else %}
@@ -98,18 +99,18 @@
 
 <h3>My Representatives</h3>
 <!-- display representatives based on your address -->
-    <form action="{% url 'mainapp:profile' %}" method="POST" class="address-form">
-            {% csrf_token %}
-            <div class="input-field">
-                <label>Enter Address:</label>
-                <input id="address-input" type="text" name="address" size=65 value="{{address}}"><br>
-                <span class="helper-text red-text" data-error="Please enter a valid address" data-success="Great!"><br></span>
-            </div>
-            <div class="btn-field">
-                <input id="rep-btn" class="btn btn-primary btn-lg" type="submit" name="representatives" value="Find Your Local Representatives">
-            </div>
-    </form>
 
+{#    <form action="{% url 'mainapp:profile' %}" method="POST" class="address-form">#}
+{#            {% csrf_token %}#}
+{#            <div class="input-field">#}
+{#                <label>Enter Address:</label>#}
+{#                <input id="address-input" type="text" name="address" size=65 value="{{address}}"><br>#}
+{#                <span class="helper-text red-text" data-error="Please enter a valid address" data-success="Great!"><br></span>#}
+{#            </div>#}
+{#            <div class="btn-field">#}
+{#                <input id="rep-btn" class="btn btn-primary btn-lg" type="submit" name="representatives" value="Find Your Local Representatives">#}
+{#            </div>#}
+{#    </form>#}
         {% if representatives %}
             <body id="reps">
                <main id="rep-main">
@@ -131,6 +132,7 @@
 {#                           </tbody>#}
 {#                       </table>#}
                    </div>
+               <a> If you would like to see representatives for a different address, click the edit profile button above </a>
                </main>
             </body>
         {% else %}
