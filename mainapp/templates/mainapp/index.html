@@ -1,5 +1,6 @@
 {% extends 'mainapp/base.html' %}
 {% load socialaccount %}
+{% load static %}
 <!DOCTYPE html>
 {% block content %}
 
@@ -7,11 +8,14 @@
   <body>
     <main role="main">
       <!-- Main jumbotron for a primary marketing message or call to action -->
-      <div class="jumbotron">
+      <div class="jumbotron text-center center-block">
         <div class="container-fluid">
           <h1 class="display-2">Welcome to Civic Connect!</h1>
           <p>This is a website for you to find, create, and share message templates that you can send to government representatives about issues that are important to you.</p>
-          <p><a class="btn btn-primary btn-lg" href="/browse" role="button">View Templates &raquo;</a></p>
+            <p><a class="btn btn-primary btn-lg" href="/browse" role="button">View Templates &raquo;</a></p><br>
+            <img src="{% static 'mainapp/../../static/vote.png' %}" alt="voice" width="200" height="200">
+            <img src="{% static 'mainapp/../../static/voice.png' %}" alt="voice" width="180" height="200">
+            <img src="{% static 'mainapp/../../static/hand.png' %}" alt="voice" width="200" height="200"> <br>
         </div>
       </div>
     </main>

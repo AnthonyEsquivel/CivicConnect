@@ -1,7 +1,7 @@
 {% extends 'mainapp/base.html' %}
 {% block content %}
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-<h1 class="display-5">Create Your Email:</h1>
+<h1 class="display-5">Personalize Your Email:</h1>
 <!--Creator Name Box-->
 <form action="{% url 'mainapp:sendEmail' %}" method="post">
     {% csrf_token %}

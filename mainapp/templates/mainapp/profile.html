@@ -4,14 +4,16 @@
 
 <div class="jumbotron">
 <div class="content container">
-    <h1>My Profile</h1>
+    <h1 style="text-align:center">My Profile</h1>
+    <br>
     {% if user.is_staff %}
-    <h3>Templates for Review</h3>
-    <a> -- Choose a template to review, then click Publish to make the template publicly available for all users --</a>
+    <h3>Admin: Templates for Review</h3>
+    <a style="color:#FF5242"> -- Choose a template to review, then click Publish to make the template publicly available for all users --</a>
+        <br>
         <br>
     <div class="list-group">
         {% for template in userTemps %}
-            <a href="/{{template.id}}" class="list-group-item list-group-item-action flex-column align-items-start">
+            <a href="/{{template.id}}" class="list-group-item list-group-item-action flex-column align-items-center">
                 <div class="d-flex w-100 justify-content-between">
                 <h5 class="mb-1">{{template.temp_name}}</h5>
                 <small>Created {{template.pub_date}}</small>
@@ -44,9 +46,12 @@
                     <a>Name: {{ user.get_full_name }} </a><br>
                     <a>Email: {{user.email}}</a><br>
                     <a>Address: {{address}}</a><br>
-                    <a>My Issues: | </a>
+                    <a>My Top Issues: </a>
                     {% for i in issues %}
-                        <a>{{i}} | </a>
+                        <span>
+                            <button class="button button2">{{i}}</button>
+                        </span>
+{#                        <a>{{i}} | </a>#}
                     {% endfor %}
                 </div>
             </div>
@@ -55,10 +60,11 @@
                         <input type = button class="btn btn-primary" onclick = "location.href='/editProfile'" value='Edit Profile'>
                 </div>
             </div>
+        <br>
         </div>
     </form>
     <h3>My Templates</h3>
-    <a> -- Choose a template then click Publish to make the template publicly available --</a>
+    <a style="color:#FF5242"> -- Templates that are under reiview will become public once our administrators have approved them. --</a>
         <br>
 
 <!-- for all the templates, grab the name -->
@@ -73,7 +79,7 @@
             {% if template.public %}
             <p class="mb-1">Public</p>
             {% else %}
-            <p class="mb-1">Private</p>
+            <p class="mb-1">Under Review</p>
             {% endif %}
         </a>
     {% endfor %}
@@ -81,8 +87,9 @@
 {% endif %}
 <br>
 
-<h3>Tagged Templates</h3>
-        <br>
+{#<h3>Tagged Templates</h3>#}
+{#        <a style="color:#FF5242"> --  --</a>#}
+{#        <br>#}
 <div class="list-group">
     {% for template in favoritedTemps %}
         <a href="/{{template.id}}" class="list-group-item list-group-item-action flex-column align-items-start">
@@ -125,18 +132,18 @@
                                {% for key, value in test_representatives.items %}
                                {{ test_representatives | json_script:"test_representatives"}}
                                <span>
-{#                                   <td class="table-content-A">{{ value.emails }}</td>#}
                                    <button class="button button2">{{ value.name }}</button>
                                </span>
                                {% endfor %}
 {#                           </tbody>#}
 {#                       </table>#}
                    </div>
+               <br>
                <a> If you would like to see representatives for a different address, click the edit profile button above </a>
                </main>
             </body>
         {% else %}
-            <h1> Please enter a full and valid address to see your representatives </h1>
+            <h1 style="color:#FF5242"> Please enter a full and valid address to see your representatives </h1>
        {% endif %}
 {% endblock %}
 

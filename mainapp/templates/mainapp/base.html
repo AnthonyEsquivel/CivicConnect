@@ -1,5 +1,13 @@
 {% load socialaccount %}
-
+<!--
+*  REFRENCES
+*  Title: Bootstrap 4
+*  Author: The Bootstrap Authors
+*  Date: 2011-2020
+*  Code version: v4.5.3
+*  URL: https://getbootstrap.com/
+*  Software License: MIT 
+-->
 <html>
 <head>
 	<meta charset="utf-8">
@@ -14,13 +22,13 @@
 
 <head>
     <!-- Top Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-expand-sm navbar-dark bg-dark">
         <a class="navbar-brand" href="/">Civic Connect</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav w-100">
 {#            <li class="nav-item active">#}
 {#                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>#}
 {#            </li>#}
@@ -43,11 +51,15 @@
                 <a class="nav-link disabled" href="" id="hellouser"></a>
             </li>
             {% if user.is_authenticated %}
-                <li class="nav-item">
+                <li class="nav-item ml-auto">
                     <a class="nav-link disabled"  style="color:white">Welcome, {{ user.get_short_name }}!  </a>
                 </li>
                 <form class="form-inline my-2 my-lg-0">
                     <a class="btn btn-primary btn-block " href="{% url 'logout' %}">Log out</a>
+                </form>
+            {% else %}
+                <form class="form-inline my-2 my-lg-0 ml-auto">
+                    <a class="btn btn-primary btn-block" href="{% provider_login_url 'google' %}">Log in</a>
                 </form>
 			{% endif %}
 	        </ul>
@@ -64,18 +76,6 @@
 <body>
     <div class="content container">
         <br>
-        <div class="row">
-            <div class="col-md-8">
-                {% if user.is_authenticated %}
-                <!--<p>Welcome, {{ user.get_short_name }}!  </p> -->
-                <!-- <a class="btn btn-primary btn-lg btn-block" href="{% url 'logout' %}">Log out</a> -->
-                {% else %}
-                  <a class="btn btn-primary btn-lg btn-block" href="{% provider_login_url 'google' %}">Log in</a>
-                  <br>
-                {% endif %}
-            </div>
-        </div>
-
         <div class="row">
             <div class="col-md-8">
             {% block content %}

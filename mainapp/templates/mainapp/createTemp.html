@@ -2,7 +2,7 @@
 {% block content %}
 <h1>{{ template.temp_text }}</h1>
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-<h1 class="display-5">Create Your Own:</h1>
+<h1 class="display-5">Create Your Own Template:</h1>
 <!--Creator Name Box-->
 {% if not user.is_authenticated%}
         <h3>Please login to create template</h3>
@@ -49,12 +49,22 @@
     </div>
     <br>
     <br>
+    <br>
+{##}
+{#    <a>Tags: </a>#}
+{#      {% for t in tags %}#}
+{#          <span>#}
+{#            <button class="button button2">{{t}}</button>#}
+{#          </span>#}
+{#      {% endfor %}#}
+{##}
+{#    <br>#}
 
     <!--Submit Template Button-->
     <!-- <button type="submit" class="btn btn-primary">Add to My Templates</button> -->
     <button type="submit" class="btn btn-primary">Submit for Review</button>&nbsp;*
     <br><br>
-    <h6 style="color:red">* Your template will be submitted to our admin for review. In the meantime, you may access it from your profile page.</h6>
+    <h6 style="color:#FF5242">* Your template will be submitted to our admin for review. In the meantime, you may access it from your profile page.</h6>
 </form>
 {% endif %}
 {% endblock %}
