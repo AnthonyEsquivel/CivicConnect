@@ -6,6 +6,13 @@
 # *  Code version: 0.43.0
 # *  URL: https://django-allauth.readthedocs.io/en/latest/installation.html
 # *  Software License: MIT
+# *
+# *  Title: dj-database-url 
+# *  Author: N/A
+# *  Date: 3/1/2018
+# *  Code version: 0.5.0
+# *  URL: https://pypi.org/project/dj-database-url/
+# *  Software License: PSF
 # ***************************************************************************************/
 
 """
@@ -21,6 +28,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import dj_database_url
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -88,12 +96,27 @@ WSGI_APPLICATION = 'civic.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
+    #DATABASES = {
+        #'default': {
+            #'ENGINE': 'django.db.backends.sqlite3',
+            #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        #}
+    #}
+DATABASES = { #ACTUAL DATABASE FOR PRODUCTION
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd94dieat1guf32',
+        'USER': 'nhprcfctzchmmh',
+        'PASSWORD': 'ab245f5eb7a3bf59c01b3dcf5877647f98066482521d6d2ca74a5cb030214c0b',
+        'HOST': 'ec2-52-200-134-180.compute-1.amazonaws.com',
+        'PORT': '5432',
+        'TEST': {
+            'NAME': 'd94dieat1guf32',
+        }
     }
 }
+d = dj_database_url.config(conn_max_age=600, ssl_require=True)
+DATABASES['default'].update(d)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
