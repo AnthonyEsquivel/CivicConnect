@@ -49,6 +49,10 @@
                 <form class="form-inline my-2 my-lg-0">
                     <a class="btn btn-primary btn-block " href="{% url 'logout' %}">Log out</a>
                 </form>
+            {% else %}
+			<form class="form-inline my-2 my-lg-0">
+				<a class="btn btn-primary btn-block" href="{% provider_login_url 'google' %}">Log in</a>
+			</form>
 			{% endif %}
 	        </ul>
         </div>
@@ -64,18 +68,6 @@
 <body>
     <div class="content container">
         <br>
-        <div class="row">
-            <div class="col-md-8">
-                {% if user.is_authenticated %}
-                <!--<p>Welcome, {{ user.get_short_name }}!  </p> -->
-                <!-- <a class="btn btn-primary btn-lg btn-block" href="{% url 'logout' %}">Log out</a> -->
-                {% else %}
-                  <a class="btn btn-primary btn-lg btn-block" href="{% provider_login_url 'google' %}">Log in</a>
-                  <br>
-                {% endif %}
-            </div>
-        </div>
-
         <div class="row">
             <div class="col-md-8">
             {% block content %}
