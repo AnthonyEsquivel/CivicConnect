@@ -2,7 +2,7 @@ from django.test import TestCase
 
 # Create your tests here.
 
-from .models import Template, MyUser, User
+from .models import Template, MyUser, User, Tags
 from django.db.utils import IntegrityError
 
 
@@ -25,10 +25,39 @@ class TemplateModelTests(TestCase):
             error = True
         self.assertTrue(error)
 
-class User(TestCase):
+class MyUser(TestCase):
     #Does MyUser address setup save to user
     def setUpMyUser(self):
          a=User(first_name="Shreyas")
          a.myuser = MyUser(address="1000 W Main Street", member_since=timezone.now())
          a.save()
          self.assertEquals(a.myUser.address, "1000 W Main Street")
+
+    # does my user create without a name
+    def testMyUserNoName(self):
+        a=User(first_name="Shreyas")
+        a.myuser = MyUser()
+        try:
+            a.save()
+            error = False
+        except IntegrityError:
+            error = True
+        self.assertTrue(error)
+
+
+class Tags(TestCase):
+    # does my tag save to the database
+    def setupTag(self):
+        a = Tags(name='TESTTAG')
+        a.save()
+        self.assertEquals(a, Tags.objects.get(name='TESTTAG'))
+
+    # does my tag create without a name
+    def testTagNoName(self):
+        a = Tags()
+        try:
+            a.save()
+            error = False
+        except IntegrityError:
+            error = True
+        self.assertTrue(error)
