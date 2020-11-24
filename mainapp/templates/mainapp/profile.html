@@ -64,7 +64,7 @@
         </div>
     </form>
     <h3>My Templates</h3>
-    <a style="color:#FF5242"> -- Choose a template then click Publish to make the template publicly available --</a>
+    <a style="color:#FF5242"> -- Templates that are under reiview will become public once our administrators have approved them. --</a>
         <br>
 
 <!-- for all the templates, grab the name -->
@@ -79,7 +79,7 @@
             {% if template.public %}
             <p class="mb-1">Public</p>
             {% else %}
-            <p class="mb-1">Private</p>
+            <p class="mb-1">Under Review</p>
             {% endif %}
         </a>
     {% endfor %}
