@@ -33,6 +33,17 @@ class MyUser(TestCase):
          a.save()
          self.assertEquals(a.myUser.address, "1000 W Main Street")
 
+    # does it throw an error when i put an invalid address
+    def testInvalidAddress(self):
+        a = User(first_name="Wendy")
+        a.myuser = MyUser(address="!", member_since=timezone.now())
+        try:
+            a.save()
+            error = False
+        except IntegrityError:
+            error = True
+        self.assertTrue(error)
+        
     # does my user create without a name
     def testMyUserNoName(self):
         a=User(first_name="Shreyas")
