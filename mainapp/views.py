@@ -21,7 +21,6 @@
 # * URL: https://developers.google.com/civic-information
 # * Software License: Apache 2.0
 # ***************************************************************************************/
-
 from django.utils import timezone
 from .models import Template, MyUser, Tags
 import requests

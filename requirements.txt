@@ -3,3 +3,4 @@ gunicorn
 django-heroku
 django-allauth
 requests~=2.24.0
+dj-database-url==0.5.0
