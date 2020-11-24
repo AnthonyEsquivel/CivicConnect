@@ -22,16 +22,16 @@
                   <small>{{template.pub_date}}</small>
                 </div>
                 <p class="mb-1">{{template.temp_description}}</p>
-                {% for t in tags %}
+                <small>Tags: </small>
+                {% for t in template.tags.all %}
                       <span>
-                      <span class="badge badge-primary badge-pill">14</span>
                         <button class="button button2">{{t}}</button>
                       </span>
                 {% endfor %}
-                <small>Tags: </small>
-                      {% for t in tags %}
-                            <a> {{t}} | <a>
-                      {% endfor %}
+{#                <small>Tags: </small>#}
+{#                      {% for t in template.tags.all %}#}
+{#                            <a> {{t}} <a>#}
+{#                      {% endfor %}#}
             </a>
         {% endfor %}
     </div>
