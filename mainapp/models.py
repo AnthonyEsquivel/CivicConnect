@@ -1,3 +1,13 @@
+# /***************************************************************************************
+# *  REFERENCES
+# *  Title: How to Extend Django User Model
+# *  Author: Vitor Freitas
+# *  Date: 07/22/2016
+# *  Code version: N/A
+# *  URL: https://simpleisbetterthancomplex.com/tutorial/2016/07/22/how-to-extend-django-user-model.html
+# *  Software License: N/A (None specified in the blog post...)
+# ***************************************************************************************/
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone

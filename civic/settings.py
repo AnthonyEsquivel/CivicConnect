@@ -1,3 +1,13 @@
+# /***************************************************************************************
+# *  REFERENCES
+# *  Title: django-allauth | Installation
+# *  Author: Raymond Penners
+# *  Date: 2020
+# *  Code version: 0.43.0
+# *  URL: https://django-allauth.readthedocs.io/en/latest/installation.html
+# *  Software License: MIT
+# ***************************************************************************************/
+
 """
 Django settings for civic project.
 
