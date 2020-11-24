@@ -24,7 +24,9 @@
             </a>
         {% endfor %}
     </div>
-    {% else %}
+    {% endif %}
+
+    <!-- the part to be shown always ------------------------------------------------------------------------------ -->
     <h1>Profile Page</h1>
     {% if not user.is_authenticated %}
         <h3>Please login to view your profile</h3>
@@ -134,7 +136,6 @@
         {% else %}
             <h1> Please enter a full and valid address to see your representatives </h1>
        {% endif %}
-{% endif %}
 {% endblock %}
 
 </div>

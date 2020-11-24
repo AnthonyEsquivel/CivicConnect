@@ -54,6 +54,7 @@ def news(request):
 
 
 def profile(request):
+    print("hello", request.user.myuser)
     userTemps = []
     if request.user.is_staff==True:
         for t in Template.objects.all():
@@ -85,6 +86,7 @@ def profile(request):
     # reference to user data on profile page (incase of empty form)
     try:
         address = request.user.myuser.address
+        print(address)
     except:
         # imitation address for checking
         address = '1826 University Ave, Charlottesville, VA 22904'
