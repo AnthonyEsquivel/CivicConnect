@@ -1,3 +1,13 @@
+# /***************************************************************************************
+# *  REFERENCES
+# *  Title: Django Email/Contact Form Tutorial
+# *  Author: Will Vincent
+# *  Date:  Nov 10, 2020
+# *  Code version: 3.0
+# *  URL: https://learndjango.com/tutorials/django-email-contact-form#create-forms
+# *  Software License: MIT
+# ***************************************************************************************/
+
 from django.forms import ModelForm
 from mainapp.models import Template
 from django import forms

@@ -2,7 +2,7 @@ from django.test import TestCase
 
 # Create your tests here.
 
-from .models import Template
+from .models import Template, MyUser, User
 from django.db.utils import IntegrityError
 
 
@@ -25,7 +25,10 @@ class TemplateModelTests(TestCase):
             error = True
         self.assertTrue(error)
 
-
-
-
-
+class User(TestCase):
+    #Does MyUser address setup save to user
+    def setUpMyUser(self):
+         a=User(first_name="Shreyas")
+         a.myuser = MyUser(address="1000 W Main Street", member_since=timezone.now())
+         a.save()
+         self.assertEquals(a.myUser.address, "1000 W Main Street")
