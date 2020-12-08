@@ -22,3 +22,5 @@ Browse Templates:
 - Users can visit the 'Browse Templates' page to view templates from other users that have been approved by the site administrators.
 - Uses will be able to select a template from the list of templates to view.
 - Once they click on one of the templates they are taken to that template's page where they can edit the message and send it to any of their representatives by selecting their radio button or send to a custom email address by typing it in box, then click 'Send to Representative' to send the email to the email address or addresses you selected.
+
+Created by Anthony Esquivel, Jeevna Prakesh, Wendy Tang, and Shreyas Mehta.
